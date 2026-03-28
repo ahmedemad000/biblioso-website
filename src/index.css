@@ -1,0 +1,199 @@
+@import "tailwindcss";
+
+@theme {
+  /* Fonts */
+  --font-satoshi: 'Satoshi', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+  
+  /* Colors - Dark Space Theme */
+  --color-space-dark: #050B1A;
+  --color-space-navy: #0A0F1F;
+  --color-space-deep: #0B1120;
+  --color-space-light: #111827;
+  
+  /* Colors - Cosmic Accents */
+  --color-cosmic-cyan: #00F5FF;
+  --color-cosmic-purple: #A855F7;
+  --color-cosmic-blue: #3B82F6;
+  --color-cosmic-electric: #06B6D4;
+  
+  /* Gray Scale */
+  --color-gray-50: #F9FAFB;
+  --color-gray-100: #F3F4F6;
+  --color-gray-200: #E5E7EB;
+  --color-gray-300: #D1D5DB;
+  --color-gray-400: #9CA3AF;
+  --color-gray-500: #6B7280;
+  --color-gray-600: #4B5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1F2937;
+  --color-gray-900: #111827;
+  
+  /* Animations */
+  --animate-gradient: gradient 6s ease infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  
+  /* Background Size */
+  --bg-size-300: 300% 300%;
+}
+
+@keyframes gradient {
+  0%, 100% {
+    background-size: 300% 300%;
+    background-position: 0% 50%;
+  }
+  50% {
+    background-size: 300% 300%;
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+/* Custom Utilities */
+@import "tailwindcss";
+
+@theme {
+  --font-satoshi: 'Satoshi', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+  
+  --color-space-dark: #050B1A;
+  --color-space-navy: #0A0F1F;
+  --color-space-deep: #0B1120;
+  --color-space-light: #111827;
+  
+  --color-cosmic-cyan: #00F5FF;
+  --color-cosmic-purple: #A855F7;
+  --color-cosmic-blue: #3B82F6;
+  --color-cosmic-electric: #06B6D4;
+  
+  --animate-gradient: gradient 6s ease infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes gradient {
+  0%, 100% {
+    background-size: 300% 300%;
+    background-position: 0% 50%;
+  }
+  50% {
+    background-size: 300% 300%;
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@utility gradient-text {
+  background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(to right, var(--color-cosmic-cyan), var(--color-cosmic-purple), var(--color-cosmic-cyan));
+  background-size: 300% 300%;
+  animation: gradient 6s ease infinite;
+}
+
+@utility glass-effect {
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@utility grid-pattern {
+  background-image: 
+    linear-gradient(rgba(0, 245, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 245, 255, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+@utility animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+@utility animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+* {
+  border-color: var(--color-gray-800);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-space-dark);
+  color: var(--color-gray-100);
+  font-family: var(--font-inter);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-satoshi);
+  font-weight: bold;
+  letter-spacing: -0.025em;
+}
+
+
+
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.05);
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.grid-pattern {
+  background-image: 
+    linear-gradient(rgba(0, 245, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 245, 255, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/*  Custom scrollbar for modal content */
+.modal-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+.modal-scroll::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+.modal-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #00F5FF, #A855F7);
+  border-radius: 4px;
+}
+.modal-scroll::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #A855F7, #00F5FF);
+}
