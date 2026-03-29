@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
-  base: '/biblioso-website/', // 👈 important for GitHub pages
+  base: '/biblioso-website/', // ← VERY IMPORTANT
   plugins: [
     react(),
     tailwindcss(),
@@ -14,16 +14,5 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    sourcemap: false,
-    minify: 'terser',
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom', 'react-router-dom'],
-          ui: ['framer-motion', 'lucide-react', 'react-hot-toast'],
-          forms: ['react-hook-form', '@hookform/resolvers', 'zod']
-        }
-      }
-    }
   }
 })
