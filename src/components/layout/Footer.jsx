@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 
+// Import your logo image – adjust the path if needed
+import logo from '../../../src/assets/logo.png'
+
 const Footer = () => {
   const [email, setEmail] = useState('')
   const [subscribed, setSubscribed] = useState(false)
@@ -184,7 +187,7 @@ const Footer = () => {
 
         <div className="container mx-auto px-4 py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
-            {/* Company Info */}
+            {/* Company Info – with logo image (no background, wider) */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -192,10 +195,14 @@ const Footer = () => {
               className="lg:col-span-2"
             >
               <div className="flex items-center space-x-3 mb-4">
-                <div className="w-10 h-10 bg-gradient-to-r from-cosmic-cyan to-cosmic-purple rounded-xl flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">B</span>
+                {/* Logo without gradient background, larger size */}
+                <div className="flex items-center justify-center">
+                  <img 
+                    src={logo} 
+                    alt="Biblioso" 
+                    className="w-48 h-40" 
+                  />
                 </div>
-                <span className="font-bold text-xl font-satoshi">Biblioso</span>
               </div>
               <p className="text-gray-400 text-sm mb-6 leading-relaxed max-w-md">
                 Engineering the Future of Intelligent Cloud Experiences through AI-driven transformative engineering services.

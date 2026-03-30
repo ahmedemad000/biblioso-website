@@ -3,7 +3,10 @@ import { Link, NavLink, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown, Sparkles, Cpu, Bot, Cloud, BarChart3, Home } from 'lucide-react'
 
-// Custom Menu and X icons
+// Import your logo image – adjust the path if needed
+import logo from '../../../src/assets/logo.png'
+
+// Custom Menu and X icons (unchanged)
 const MenuIcon = ({ size = 24, isOpen = false }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -64,12 +67,12 @@ const Header = () => {
     const handleScroll = () => {
       const scrollY = window.scrollY
       setScrolled(scrollY > 50)
-      
+
       const windowHeight = document.documentElement.scrollHeight - window.innerHeight
       const progress = (scrollY / windowHeight) * 100
       setScrollProgress(progress)
     }
-    
+
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
@@ -129,7 +132,7 @@ const Header = () => {
     )
   }
 
-  const isActiveCoreCompetencies = location.pathname === '/core-competencies' || 
+  const isActiveCoreCompetencies = location.pathname === '/core-competencies' ||
     location.pathname.startsWith('/services/')
 
   return (
@@ -142,71 +145,50 @@ const Header = () => {
         animate={{ scaleX: scrollProgress / 100 }}
         transition={{ type: "spring", stiffness: 100, damping: 20 }}
       />
-      
+
       <motion.header
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, type: 'spring', stiffness: 100 }}
-        className={`fixed top-0 w-full z-50 transition-all duration-500 ${
-          scrolled 
-            ? 'bg-space-navy/90 backdrop-blur-xl shadow-2xl border-b border-white/10' 
+        className={`fixed top-0 w-full z-50 transition-all duration-500 ${scrolled
+            ? 'bg-space-navy/90 backdrop-blur-xl shadow-2xl border-b border-white/10'
             : 'bg-transparent'
-        }`}
+          }`}
       >
         <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 md:h-20">
-            {/* Logo */}
+            {/* Logo only – no background, no animation, larger size */}
             <Link to="/" className="relative group">
-              <div className="flex items-center space-x-3">
-                <motion.div
-                  whileHover={{ rotate: 360 }}
-                  transition={{ duration: 0.6, type: 'spring' }}
-                  className="relative"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-cosmic-cyan to-cosmic-purple rounded-xl blur-md opacity-75 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="relative w-10 h-10 bg-gradient-to-r from-cosmic-cyan to-cosmic-purple rounded-xl flex items-center justify-center">
-                    <span className="text-white font-bold text-xl">B</span>
-                  </div>
-                </motion.div>
-                <motion.span 
-                  className={`font-bold text-xl font-satoshi transition-colors duration-300 ${
-                    scrolled ? 'text-white' : 'text-white'
-                  }`}
-                  whileHover={{ scale: 1.05 }}
-                >
-                  Biblioso
-                </motion.span>
+              <div className="flex items-center">
+                <div className="relative w-24 h-24 md:w-28 md:h-28 flex items-center justify-center">
+                  <img src={logo} alt="Biblioso" className="w-46 h-40 " />                </div>
               </div>
             </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-1">
-              {/* Home Link */}
               <NavLink
                 to="/"
                 className={({ isActive }) =>
-                  `px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg ${
-                    isActive 
-                      ? 'text-cosmic-cyan' 
-                      : scrolled 
-                        ? 'text-gray-300 hover:text-cosmic-cyan' 
-                        : 'text-white/90 hover:text-cosmic-cyan'
+                  `px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg ${isActive
+                    ? 'text-cosmic-cyan'
+                    : scrolled
+                      ? 'text-gray-300 hover:text-cosmic-cyan'
+                      : 'text-white/90 hover:text-cosmic-cyan'
                   }`
                 }
               >
                 Home
               </NavLink>
 
-              {/* Core Competencies - Now a direct link to the page */}
               <Link
                 to="/core-competencies"
-                className={`px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg flex items-center gap-1 ${
-                  isActiveCoreCompetencies
+                className={`px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg flex items-center gap-1 ${isActiveCoreCompetencies
                     ? 'text-cosmic-cyan'
-                    : scrolled 
-                      ? 'text-gray-300 hover:text-cosmic-cyan' 
+                    : scrolled
+                      ? 'text-gray-300 hover:text-cosmic-cyan'
                       : 'text-white/90 hover:text-cosmic-cyan'
-                }`}
+                  }`}
               >
                 Core Competencies
               </Link>
@@ -214,12 +196,11 @@ const Header = () => {
               <NavLink
                 to="/about"
                 className={({ isActive }) =>
-                  `px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg ${
-                    isActive 
-                      ? 'text-cosmic-cyan' 
-                      : scrolled 
-                        ? 'text-gray-300 hover:text-cosmic-cyan' 
-                        : 'text-white/90 hover:text-cosmic-cyan'
+                  `px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg ${isActive
+                    ? 'text-cosmic-cyan'
+                    : scrolled
+                      ? 'text-gray-300 hover:text-cosmic-cyan'
+                      : 'text-white/90 hover:text-cosmic-cyan'
                   }`
                 }
               >
@@ -229,12 +210,11 @@ const Header = () => {
               <NavLink
                 to="/recruiting"
                 className={({ isActive }) =>
-                  `px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg ${
-                    isActive 
-                      ? 'text-cosmic-cyan' 
-                      : scrolled 
-                        ? 'text-gray-300 hover:text-cosmic-cyan' 
-                        : 'text-white/90 hover:text-cosmic-cyan'
+                  `px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg ${isActive
+                    ? 'text-cosmic-cyan'
+                    : scrolled
+                      ? 'text-gray-300 hover:text-cosmic-cyan'
+                      : 'text-white/90 hover:text-cosmic-cyan'
                   }`
                 }
               >
@@ -244,12 +224,11 @@ const Header = () => {
               <NavLink
                 to="/contact"
                 className={({ isActive }) =>
-                  `px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg ${
-                    isActive 
-                      ? 'text-cosmic-cyan' 
-                      : scrolled 
-                        ? 'text-gray-300 hover:text-cosmic-cyan' 
-                        : 'text-white/90 hover:text-cosmic-cyan'
+                  `px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg ${isActive
+                    ? 'text-cosmic-cyan'
+                    : scrolled
+                      ? 'text-gray-300 hover:text-cosmic-cyan'
+                      : 'text-white/90 hover:text-cosmic-cyan'
                   }`
                 }
               >
@@ -257,9 +236,11 @@ const Header = () => {
               </NavLink>
 
               <div className="ml-4">
-                <Button variant={scrolled ? 'primary' : 'outline'} size="sm">
-                  Get Started
-                </Button>
+                <Link to="/contact">
+                  <Button variant={scrolled ? 'primary' : 'outline'} size="sm">
+                    Get Started
+                  </Button>
+                </Link>
               </div>
             </div>
 
@@ -275,7 +256,7 @@ const Header = () => {
           </div>
         </nav>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigation (unchanged except logo size) */}
         <AnimatePresence>
           {isOpen && (
             <>
@@ -287,7 +268,7 @@ const Header = () => {
                 onClick={() => setIsOpen(false)}
                 className="fixed inset-0 bg-black/60 backdrop-blur-md z-40 md:hidden"
               />
-              
+
               {/* Menu Panel */}
               <motion.div
                 initial={{ opacity: 0, x: '100%' }}
@@ -297,50 +278,43 @@ const Header = () => {
                 className="fixed top-0 right-0 bottom-0 w-full max-w-sm bg-space-navy/95 backdrop-blur-xl shadow-2xl z-40 md:hidden border-l border-white/10"
               >
                 <div className="flex flex-col h-full pt-20 pb-8 px-6">
-                  {/* Logo in menu */}
                   <div className="mb-8">
                     <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-gradient-to-r from-cosmic-cyan to-cosmic-purple rounded-xl flex items-center justify-center">
-                        <span className="text-white font-bold text-xl">B</span>
+                      <div className="w-20 h-20 flex items-center justify-center">
+                        <img src={logo} alt="Biblioso" className="w-full h-full object-contain" />
                       </div>
-                      <span className="font-bold text-xl text-white font-satoshi">Biblioso</span>
                     </div>
                   </div>
-                  
-                  {/* Navigation Items */}
+
                   <div className="flex-1 space-y-4">
-                    {/* Home Link */}
                     <Link
                       to="/"
                       onClick={() => setIsOpen(false)}
-                      className={`block px-4 py-3 rounded-xl transition-all duration-200 ${
-                        location.pathname === '/'
+                      className={`block px-4 py-3 rounded-xl transition-all duration-200 ${location.pathname === '/'
                           ? 'bg-gradient-to-r from-cosmic-cyan/20 to-cosmic-purple/20 text-cosmic-cyan border border-cosmic-cyan/30'
                           : 'text-gray-300 hover:text-white hover:bg-white/10'
-                      }`}
+                        }`}
                     >
                       <div className="flex items-center gap-3">
                         <Home className="w-5 h-5" />
                         <span className="font-medium">Home</span>
                       </div>
                     </Link>
-                    
-                    {/* Core Competencies - Main Link */}
+
                     <Link
                       to="/core-competencies"
                       onClick={() => setIsOpen(false)}
-                      className={`block px-4 py-3 rounded-xl transition-all duration-200 ${
-                        isActiveCoreCompetencies
+                      className={`block px-4 py-3 rounded-xl transition-all duration-200 ${isActiveCoreCompetencies
                           ? 'bg-gradient-to-r from-cosmic-cyan/20 to-cosmic-purple/20 text-cosmic-cyan border border-cosmic-cyan/30'
                           : 'text-gray-300 hover:text-white hover:bg-white/10'
-                      }`}
+                        }`}
                     >
                       <div className="flex items-center gap-3">
                         <Sparkles className="w-5 h-5" />
                         <span className="font-medium">Core Competencies</span>
                       </div>
                     </Link>
-                    
+
                     <div className="pl-4 ml-2 border-l border-white/10 space-y-2">
                       {coreCompetencies.map((item) => (
                         <Link
@@ -356,9 +330,9 @@ const Header = () => {
                         </Link>
                       ))}
                     </div>
-                    
+
                     <div className="h-px bg-white/10 my-4" />
-                    
+
                     <Link
                       to="/about"
                       onClick={() => setIsOpen(false)}
@@ -366,7 +340,7 @@ const Header = () => {
                     >
                       About Us
                     </Link>
-                    
+
                     <Link
                       to="/recruiting"
                       onClick={() => setIsOpen(false)}
@@ -374,7 +348,7 @@ const Header = () => {
                     >
                       Recruiting
                     </Link>
-                    
+
                     <Link
                       to="/contact"
                       onClick={() => setIsOpen(false)}
@@ -383,14 +357,14 @@ const Header = () => {
                       Contact
                     </Link>
                   </div>
-                  
-                  {/* CTA Button */}
+
                   <div className="pt-8">
-                    <Button variant="primary" size="lg" className="w-full">
-                      Get Started
-                    </Button>
-                    
-                    {/* Social Links */}
+                    <Link to="/contact">
+                      <Button variant="primary" size="lg" className="w-full">
+                        Get Started
+                      </Button>
+                    </Link>
+
                     <div className="flex justify-center space-x-6 mt-8">
                       {['LinkedIn', 'Twitter', 'GitHub'].map((social) => (
                         <a

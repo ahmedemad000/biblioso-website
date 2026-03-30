@@ -42,7 +42,7 @@ const MagneticButton = ({ children, ...props }) => {
   )
 }
 
-// Fast Glow Card
+// Fast Glow Card (still used in Core Tenets)
 const GlowCard = ({ children, className = '', ...props }) => {
   return (
     <motion.div
@@ -63,7 +63,6 @@ const Home = () => {
   const containerRef = useRef(null)
   const heroRef = useRef(null)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  const [activeStat, setActiveStat] = useState(null)
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -120,50 +119,44 @@ const Home = () => {
     },
   ]
 
+  // Service data – no metrics or numbers
   const featuredServices = [
     {
       icon: Cpu,
       title: 'Professional Services',
       description: 'End-to-end engineering and program management',
-      metrics: '99.9%',
-      metricLabel: 'Success Rate',
       path: '/services/professional',
-      gradient: 'from-cyan-500 to-blue-500'
+      gradient: 'from-cyan-500 to-blue-500',
+      longDescription: 'We accelerate product development, strengthen operational execution, and optimise technology investments through flexible delivery models – onsite, offshore, or dual‑shore.',
+      features: ['Solution Architecture', 'Full‑Stack Engineering', 'DevOps & CI/CD']
     },
     {
       icon: Bot,
       title: 'Intelligent Applications',
       description: 'AI-driven applications that automate workflows',
-      metrics: '3x',
-      metricLabel: 'Faster Deployment',
       path: '/services/intelligent-applications',
-      gradient: 'from-purple-500 to-pink-500'
+      gradient: 'from-purple-500 to-pink-500',
+      longDescription: 'Build, modernise, and operate secure, AI‑driven applications that deliver adaptive digital experiences and enhance decision‑making.',
+      features: ['ML & Automation', 'Cloud‑Native Modernisation', 'AI Agents & Copilots']
     },
     {
       icon: Cloud,
       title: 'Cloud Infrastructure',
       description: 'Hyperscale datacenter services and lab ops',
-      metrics: '99.999%',
-      metricLabel: 'Uptime',
       path: '/services/cloud-infrastructure',
-      gradient: 'from-green-500 to-emerald-500'
+      gradient: 'from-green-500 to-emerald-500',
+      longDescription: 'From planning and component‑level engineering to lab operations and next‑gen hardware integration – we support the world’s largest datacenters.',
+      features: ['Space & Power Planning', 'Hardware Qualification', 'Fleet Labs']
     },
     {
       icon: BarChart3,
       title: 'Analytics',
       description: 'Predictive modeling and anomaly detection',
-      metrics: '85%',
-      metricLabel: 'Faster Resolution',
       path: '/services/analytics',
-      gradient: 'from-orange-500 to-red-500'
+      gradient: 'from-orange-500 to-red-500',
+      longDescription: 'Leverage telemetry, ML models, and automation to predict failures, prevent outages, and improve reliability at scale.',
+      features: ['Data Pipelines', 'Anomaly Detection', 'Automated Remediation']
     },
-  ]
-
-  const stats = [
-    { value: '500+', label: 'Enterprise Clients', icon: Globe, detail: 'Global enterprises trust us', growth: '+156%', color: 'cyan' },
-    { value: '99.9%', label: 'Success Rate', icon: Shield, detail: 'Industry-leading reliability', growth: 'Top 1%', color: 'purple' },
-    { value: '24/7', label: 'Global Support', icon: Sparkles, detail: 'Always-on expert assistance', growth: 'Always On', color: 'blue' },
-    { value: '50+', label: 'Countries', icon: Layers, detail: 'Worldwide presence', growth: '4 Continents', color: 'green' },
   ]
 
   const technologies = [
@@ -172,9 +165,8 @@ const Home = () => {
 
   return (
     <div ref={containerRef} className="bg-black relative overflow-hidden">
-      {/* Hero Section - With Image */}
+      {/* Hero Section - No stats row */}
       <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Dynamic Gradient Orbs with Mouse Follow */}
         <motion.div
           style={{ x: mousePosition.x * 0.6, y: mousePosition.y * 0.6 }}
           transition={{ type: "spring", stiffness: 400, damping: 20 }}
@@ -186,7 +178,6 @@ const Home = () => {
           className="absolute bottom-1/3 right-1/4 w-[600px] h-[600px] bg-cosmic-purple/15 rounded-full blur-[150px]"
         />
         
-        {/* Animated Grid Background */}
         <div className="absolute inset-0 opacity-20">
           <div className="absolute inset-0" style={{
             backgroundImage: `repeating-linear-gradient(45deg, #00F5FF 0px, #00F5FF 1px, transparent 1px, transparent 50px),
@@ -207,7 +198,6 @@ const Home = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                {/* Premium Badge */}
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -223,7 +213,6 @@ const Home = () => {
                   <span className="text-xs text-gray-300 font-mono tracking-wider">// NEXT-GEN AI ENGINEERING</span>
                 </motion.div>
 
-                {/* Main Headline */}
                 <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tighter">
                   <motion.span
                     initial={{ opacity: 0, y: 20 }}
@@ -260,7 +249,6 @@ const Home = () => {
                   Deliver best-in-class solutions through AI-driven transformative engineering services.
                 </motion.p>
                 
-                {/* CTA Buttons */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -288,47 +276,10 @@ const Home = () => {
                     </Button>
                   </MagneticButton>
                 </motion.div>
-
-                {/* Stats Row */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: 0.6 }}
-                  className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-xl"
-                >
-                  {stats.map((stat, index) => (
-                    <motion.div
-                      key={index}
-                      whileHover={{ y: -3 }}
-                      transition={{ duration: 0.15 }}
-                      className="text-center lg:text-left cursor-pointer group"
-                      onMouseEnter={() => setActiveStat(index)}
-                      onMouseLeave={() => setActiveStat(null)}
-                    >
-                      <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-cosmic-cyan to-cosmic-purple bg-clip-text text-transparent">
-                        {stat.value}
-                      </div>
-                      <div className="text-xs text-gray-500 mt-1">{stat.label}</div>
-                      <AnimatePresence>
-                        {activeStat === index && (
-                          <motion.div
-                            initial={{ opacity: 0, y: 5 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: 5 }}
-                            transition={{ duration: 0.1 }}
-                            className="text-[10px] text-cosmic-cyan mt-1"
-                          >
-                            {stat.growth}
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </motion.div>
-                  ))}
-                </motion.div>
               </motion.div>
             </motion.div>
 
-            {/* Right Side - Premium Image Design */}
+            {/* Right Side - Premium Image Design (unchanged) */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9, rotateY: 10 }}
               animate={{ opacity: 1, scale: 1, rotateY: 0 }}
@@ -336,7 +287,6 @@ const Home = () => {
               className="relative hidden lg:block"
             >
               <div className="relative">
-                {/* Glow Effect Behind Image */}
                 <motion.div
                   animate={{ 
                     scale: [1, 1.05, 1],
@@ -346,28 +296,19 @@ const Home = () => {
                   className="absolute inset-0 bg-gradient-to-r from-cosmic-cyan/30 to-cosmic-purple/30 rounded-3xl blur-3xl"
                 />
                 
-                {/* Main Image Container */}
                 <div className="relative rounded-3xl overflow-hidden border border-white/20 shadow-2xl">
-                  {/* Gradient Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-tr from-cosmic-cyan/20 via-transparent to-cosmic-purple/20 z-10" />
-                  
-                  {/* The Image - Replace with your actual image URL */}
                   <img 
                     src="https://images.pexels.com/photos/36169773/pexels-photo-36169773.jpeg"
                     alt="AI Technology Visualization"
                     className="w-full h-auto object-cover transform scale-105 hover:scale-100 transition-transform duration-700"
                   />
-                  
-                  {/* Animated Scan Line */}
                   <motion.div
                     animate={{ y: ["0%", "100%", "0%"] }}
                     transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
                     className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-cosmic-cyan/30 to-transparent blur-md"
                   />
-                  
-                  {/* Floating Tech Icons Overlay */}
                   <div className="absolute inset-0 pointer-events-none">
-                    {/* CPU Icon - Top Left */}
                     <motion.div
                       animate={{ y: [0, -10, 0], x: [0, 5, 0] }}
                       transition={{ duration: 3, repeat: Infinity }}
@@ -375,8 +316,6 @@ const Home = () => {
                     >
                       <Cpu className="w-6 h-6 text-cosmic-cyan" />
                     </motion.div>
-                    
-                    {/* Cloud Icon - Top Right */}
                     <motion.div
                       animate={{ y: [0, -8, 0], x: [0, -5, 0] }}
                       transition={{ duration: 2.5, repeat: Infinity, delay: 0.5 }}
@@ -384,8 +323,6 @@ const Home = () => {
                     >
                       <Cloud className="w-6 h-6 text-cosmic-purple" />
                     </motion.div>
-                    
-                    {/* Bot Icon - Bottom Left */}
                     <motion.div
                       animate={{ y: [0, 8, 0], x: [0, 5, 0] }}
                       transition={{ duration: 3.5, repeat: Infinity, delay: 1 }}
@@ -393,8 +330,6 @@ const Home = () => {
                     >
                       <Bot className="w-6 h-6 text-cosmic-cyan" />
                     </motion.div>
-                    
-                    {/* Database Icon - Bottom Right */}
                     <motion.div
                       animate={{ y: [0, 10, 0], x: [0, -5, 0] }}
                       transition={{ duration: 4, repeat: Infinity, delay: 0.8 }}
@@ -402,8 +337,6 @@ const Home = () => {
                     >
                       <Database className="w-6 h-6 text-cosmic-purple" />
                     </motion.div>
-                    
-                    {/* Center Glow */}
                     <motion.div
                       animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
                       transition={{ duration: 2, repeat: Infinity }}
@@ -412,7 +345,6 @@ const Home = () => {
                   </div>
                 </div>
                 
-                {/* Floating Data Points */}
                 {[...Array(6)].map((_, i) => (
                   <motion.div
                     key={i}
@@ -435,7 +367,6 @@ const Home = () => {
                   />
                 ))}
                 
-                {/* Tech Badges */}
                 <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 flex gap-2">
                   {['AI-Powered', 'Cloud Native', 'Edge Ready'].map((tech, i) => (
                     <motion.div
@@ -455,7 +386,6 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Fast Scroll Indicator */}
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 1, repeat: Infinity }}
@@ -465,8 +395,8 @@ const Home = () => {
         </motion.div>
       </section>
 
-      {/* Core Tenets - Fast Cards */}
-      <section className="py-24 bg-gradient-to-b from-black to-zinc-950">
+      {/* Core Tenets Section (unchanged) */}
+      <section className="py-24 bg-gradient-to-b from-black to-zinc-950 overflow-hidden">
         <div className="container mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -482,91 +412,162 @@ const Home = () => {
             <div className="h-px w-12 bg-cosmic-cyan mx-auto mt-4" />
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 auto-rows-fr">
             {coreTenets.map((tenet, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.2, delay: tenet.delay }}
-                whileHover={{ y: -5 }}
+                transition={{ duration: 0.3, delay: tenet.delay }}
+                whileHover={{ y: -8, scale: 1.02 }}
+                className="group relative"
               >
-                <GlowCard className="p-6 h-full">
-                  <div className={`inline-flex p-2 rounded-lg bg-gradient-to-r ${tenet.gradient} mb-4`}>
-                    <tenet.icon className={`w-6 h-6 ${tenet.color}`} />
+                <div className="relative h-full bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-6 transition-all duration-300 hover:border-cosmic-cyan/50 hover:shadow-2xl hover:shadow-cosmic-cyan/10 overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-cosmic-cyan/0 via-cosmic-purple/0 to-transparent group-hover:from-cosmic-cyan/10 group-hover:via-cosmic-purple/10 transition-all duration-500" />
+                  
+                  <div className="relative mb-5">
+                    <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-cosmic-cyan to-cosmic-purple blur-md opacity-0 group-hover:opacity-30 transition-opacity duration-300" />
+                    <div className={`relative inline-flex p-3 rounded-xl bg-gradient-to-r ${tenet.gradient} group-hover:scale-110 transition-transform duration-300`}>
+                      <tenet.icon className={`w-7 h-7 ${tenet.color}`} />
+                    </div>
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-2 group-hover:text-cosmic-cyan transition-colors duration-150">
+
+                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-cosmic-cyan transition-colors duration-200">
                     {tenet.title}
                   </h3>
-                  <p className="text-gray-400 text-sm leading-relaxed">{tenet.description}</p>
-                </GlowCard>
+                  <p className="text-gray-400 text-sm leading-relaxed">
+                    {tenet.description}
+                  </p>
+
+                  <div className="mt-4 h-0.5 w-8 bg-cosmic-cyan/50 rounded-full group-hover:w-full transition-all duration-500" />
+                </div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Featured Services - Premium Grid with Correct Links */}
-      <section className="py-24 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-zinc-950 to-black" />
-        <div className="container mx-auto px-6 relative">
+      {/* SERVICES SECTION – NO METRICS, NO NUMBERS */}
+      <section className="py-24 relative overflow-hidden bg-gradient-to-b from-zinc-950 to-black">
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-cosmic-cyan/20 rounded-full blur-[100px] animate-pulse-slow" />
+          <div className="absolute bottom-20 right-10 w-80 h-80 bg-cosmic-purple/20 rounded-full blur-[100px] animate-pulse-slow animation-delay-2000" />
+        </div>
+
+        <div className="container mx-auto px-6 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.3 }}
-            className="text-center mb-16"
+            className="text-center mb-20"
           >
             <span className="text-cosmic-cyan font-mono text-xs tracking-wider">// SERVICES</span>
             <h2 className="text-4xl md:text-5xl font-bold text-white mt-3 tracking-tighter">
               What We <span className="text-cosmic-cyan">Deliver</span>
             </h2>
+            <div className="h-px w-12 bg-cosmic-cyan mx-auto mt-4 mb-6" />
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              Enterprise‑grade solutions engineered for performance, scale, and innovation – delivered without compromise.
+            </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {featuredServices.map((service, index) => (
+          <div className="space-y-32">
+            {featuredServices.map((service, idx) => (
               <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
+                key={idx}
+                initial={{ opacity: 0, y: 60 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.2, delay: index * 0.05 }}
-                whileHover={{ y: -3 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className={`flex flex-col ${idx % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 items-center`}
               >
-                <GlowCard className="group p-6">
-                  <div className="flex items-start gap-4">
-                    <div className={`p-2 rounded-lg bg-gradient-to-r ${service.gradient} bg-opacity-20`}>
-                      <service.icon className="w-6 h-6 text-cosmic-cyan" />
+                {/* Left side: text content */}
+                <div className="flex-1 text-center lg:text-left">
+                  <motion.div
+                    whileHover={{ scale: 1.05, rotate: 2 }}
+                    className="inline-flex items-center gap-4 mb-6"
+                  >
+                    <div className={`p-4 rounded-2xl bg-gradient-to-r ${service.gradient} bg-opacity-20`}>
+                      <service.icon className="w-10 h-10 text-cosmic-cyan" />
                     </div>
-                    <div className="flex-1">
-                      <div className="flex items-center justify-between mb-2">
-                        <h3 className="text-xl font-bold text-white group-hover:text-cosmic-cyan transition-colors duration-150">
-                          {service.title}
-                        </h3>
-                        <div className="text-right">
-                          <div className="text-2xl font-bold text-cosmic-cyan">{service.metrics}</div>
-                          <div className="text-[10px] text-gray-500">{service.metricLabel}</div>
-                        </div>
-                      </div>
-                      <p className="text-gray-400 text-sm mb-3">{service.description}</p>
-                      <Link 
-                        to={service.path}
-                        className="inline-flex items-center text-cosmic-cyan text-sm font-medium hover:gap-2 transition-all duration-150 group/link"
+                    {/* No metric number here */}
+                  </motion.div>
+
+                  <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                    {service.title}
+                  </h3>
+                  <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                    {service.longDescription}
+                  </p>
+                  <div className="flex flex-wrap gap-3 mb-8">
+                    {service.features.map((feature, i) => (
+                      <span
+                        key={i}
+                        className="px-3 py-1 rounded-full bg-white/5 text-gray-300 text-sm border border-white/10"
                       >
-                        Learn More
-                        <ChevronRight className="ml-1 w-4 h-4 group-hover/link:translate-x-1 transition-transform duration-150" />
-                      </Link>
-                    </div>
+                        {feature}
+                      </span>
+                    ))}
                   </div>
-                </GlowCard>
+                  <Link
+                    to={service.path}
+                    className="inline-flex items-center gap-2 text-cosmic-cyan font-medium group"
+                  >
+                    <span>Explore {service.title.split(' ')[0]}</span>
+                    <motion.div
+                      animate={{ x: [0, 5, 0] }}
+                      transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+                    >
+                      <ArrowRight className="w-4 h-4" />
+                    </motion.div>
+                  </Link>
+                </div>
+
+                {/* Right side: animated visual (no numbers) */}
+                <div className="flex-1 relative flex justify-center">
+                  <motion.div
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    whileInView={{ scale: 1, opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: idx * 0.1 + 0.3, duration: 0.6, type: 'spring' }}
+                    className="relative w-64 h-64 md:w-80 md:h-80"
+                  >
+                    <div className={`absolute inset-0 rounded-full bg-gradient-to-br ${service.gradient} opacity-20 blur-3xl animate-pulse-slow`} />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <service.icon className="w-24 h-24 text-cosmic-cyan opacity-80" strokeWidth={1} />
+                    </div>
+                    {[...Array(8)].map((_, i) => (
+                      <motion.div
+                        key={i}
+                        className="absolute w-1 h-1 bg-cosmic-cyan rounded-full"
+                        animate={{
+                          x: [0, (Math.random() - 0.5) * 100],
+                          y: [0, (Math.random() - 0.5) * 100],
+                          opacity: [0, 1, 0],
+                        }}
+                        transition={{
+                          duration: 4,
+                          repeat: Infinity,
+                          delay: i * 0.5,
+                          ease: "linear",
+                        }}
+                        style={{
+                          top: `${20 + Math.random() * 60}%`,
+                          left: `${20 + Math.random() * 60}%`,
+                        }}
+                      />
+                    ))}
+                  </motion.div>
+                </div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Technology Stack - Trust Badges */}
+      {/* Technology Stack - Trust Badges (unchanged) */}
       <section className="py-24 bg-gradient-to-b from-black to-zinc-950">
         <div className="container mx-auto px-6">
           <motion.div
@@ -598,7 +599,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* CTA Section - Bold & Fast */}
+      {/* CTA Section – No numbers or statistics */}
       <section className="py-24 relative overflow-hidden">
         <div className="absolute inset-0">
           <motion.div
@@ -631,7 +632,7 @@ const Home = () => {
             </h2>
             
             <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
-              Join 500+ leading enterprises that trust Biblioso for their engineering transformation
+              Join leading enterprises that trust Biblioso for their engineering transformation
             </p>
             
             <MagneticButton>
