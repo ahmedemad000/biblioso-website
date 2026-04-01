@@ -151,8 +151,8 @@ const Header = () => {
         animate={{ y: 0 }}
         transition={{ duration: 0.6, type: 'spring', stiffness: 100 }}
         className={`fixed top-0 w-full z-50 transition-all duration-500 ${scrolled
-            ? 'bg-space-navy/90 backdrop-blur-xl shadow-2xl border-b border-white/10'
-            : 'bg-transparent'
+          ? 'bg-space-navy/90 backdrop-blur-xl shadow-2xl border-b border-white/10'
+          : 'bg-transparent'
           }`}
       >
         <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -160,8 +160,9 @@ const Header = () => {
             {/* Logo only – no background, no animation, larger size */}
             <Link to="/" className="relative group">
               <div className="flex items-center">
-                <div className="relative w-24 h-24 md:w-28 md:h-28 flex items-center justify-center">
-                  <img src={logo} alt="Biblioso" className="w-46 h-40 " />                </div>
+                <div className="w-32 h-32 flex items-center justify-center">
+                  <img src={logo} alt="Biblioso" className="w-full h-full object-contain" />
+                </div>
               </div>
             </Link>
 
@@ -184,10 +185,10 @@ const Header = () => {
               <Link
                 to="/core-competencies"
                 className={`px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg flex items-center gap-1 ${isActiveCoreCompetencies
-                    ? 'text-cosmic-cyan'
-                    : scrolled
-                      ? 'text-gray-300 hover:text-cosmic-cyan'
-                      : 'text-white/90 hover:text-cosmic-cyan'
+                  ? 'text-cosmic-cyan'
+                  : scrolled
+                    ? 'text-gray-300 hover:text-cosmic-cyan'
+                    : 'text-white/90 hover:text-cosmic-cyan'
                   }`}
               >
                 Core Competencies
@@ -291,8 +292,8 @@ const Header = () => {
                       to="/"
                       onClick={() => setIsOpen(false)}
                       className={`block px-4 py-3 rounded-xl transition-all duration-200 ${location.pathname === '/'
-                          ? 'bg-gradient-to-r from-cosmic-cyan/20 to-cosmic-purple/20 text-cosmic-cyan border border-cosmic-cyan/30'
-                          : 'text-gray-300 hover:text-white hover:bg-white/10'
+                        ? 'bg-gradient-to-r from-cosmic-cyan/20 to-cosmic-purple/20 text-cosmic-cyan border border-cosmic-cyan/30'
+                        : 'text-gray-300 hover:text-white hover:bg-white/10'
                         }`}
                     >
                       <div className="flex items-center gap-3">
@@ -305,8 +306,8 @@ const Header = () => {
                       to="/core-competencies"
                       onClick={() => setIsOpen(false)}
                       className={`block px-4 py-3 rounded-xl transition-all duration-200 ${isActiveCoreCompetencies
-                          ? 'bg-gradient-to-r from-cosmic-cyan/20 to-cosmic-purple/20 text-cosmic-cyan border border-cosmic-cyan/30'
-                          : 'text-gray-300 hover:text-white hover:bg-white/10'
+                        ? 'bg-gradient-to-r from-cosmic-cyan/20 to-cosmic-purple/20 text-cosmic-cyan border border-cosmic-cyan/30'
+                        : 'text-gray-300 hover:text-white hover:bg-white/10'
                         }`}
                     >
                       <div className="flex items-center gap-3">
