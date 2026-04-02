@@ -1,8 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion'
-import { 
-  Briefcase, MapPin, Calendar, Sparkles, Users, TrendingUp, Award, 
-  X, Mail, Phone, CheckCircle, Clock, Globe, Zap, Heart, Star, ArrowRight, Send
+import {
+  Briefcase, MapPin, Calendar, Sparkles, Users, TrendingUp, Award,
+  X, Mail, Phone, CheckCircle, Clock, Globe, Zap, Heart, Star, ArrowRight, Send,
+  Coffee, Home, Plane, Gift, BookOpen, Shield, Rocket, Target, Layers, BarChart3,
+  FileText, Code
 } from 'lucide-react'
 import Button from '../components/ui/Button'
 
@@ -10,7 +12,18 @@ const Recruiting = () => {
   const [selectedJob, setSelectedJob] = useState(null)
   const [selectedDepartment, setSelectedDepartment] = useState('all')
   const [selectedLocation, setSelectedLocation] = useState('all')
+  const [selectedUrgency, setSelectedUrgency] = useState('all')
   const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    experience: '',
+    resume: null,
+    coverLetter: ''
+  })
+  const [activeTestimonial, setActiveTestimonial] = useState(0)
+  const [showOpenAppModal, setShowOpenAppModal] = useState(false)
+  const [openAppFormData, setOpenAppFormData] = useState({
     name: '',
     email: '',
     phone: '',
@@ -21,7 +34,7 @@ const Recruiting = () => {
 
   const containerRef = useRef(null)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"]
@@ -190,11 +203,13 @@ const Recruiting = () => {
 
   const departments = ['all', ...new Set(openPositions.map(job => job.department))]
   const locations = ['all', ...new Set(openPositions.map(job => job.location))]
+  const urgencies = ['all', 'high', 'medium', 'low']
 
   const filteredJobs = openPositions.filter(job => {
     const matchesDepartment = selectedDepartment === 'all' || job.department === selectedDepartment
     const matchesLocation = selectedLocation === 'all' || job.location === selectedLocation
-    return matchesDepartment && matchesLocation
+    const matchesUrgency = selectedUrgency === 'all' || job.urgency === selectedUrgency
+    return matchesDepartment && matchesLocation && matchesUrgency
   })
 
   const handleSubmit = (e) => {
@@ -215,8 +230,26 @@ const Recruiting = () => {
     setFormData({ ...formData, resume: e.target.files[0] })
   }
 
+  const handleOpenApplicationSubmit = (e) => {
+    e.preventDefault()
+    alert('Open application submitted successfully! We\'ll review your profile and contact you when a suitable position opens.')
+    setShowOpenAppModal(false)
+    setOpenAppFormData({
+      name: '',
+      email: '',
+      phone: '',
+      experience: '',
+      resume: null,
+      coverLetter: ''
+    })
+  }
+
+  const handleOpenAppFileChange = (e) => {
+    setOpenAppFormData({ ...openAppFormData, resume: e.target.files[0] })
+  }
+
   const getUrgencyColor = (urgency) => {
-    switch(urgency) {
+    switch (urgency) {
       case 'high': return 'text-red-400 bg-red-400/10'
       case 'medium': return 'text-yellow-400 bg-yellow-400/10'
       case 'low': return 'text-green-400 bg-green-400/10'
@@ -224,10 +257,52 @@ const Recruiting = () => {
     }
   }
 
+  // Testimonials data
+  const testimonials = [
+    {
+      name: 'Alex Johnson',
+      role: 'Senior Software Engineer',
+      quote: 'The culture at Biblioso is unmatched. I’ve never worked with such a talented and supportive team.',
+      avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
+      department: 'Engineering'
+    },
+    {
+      name: 'Maria Garcia',
+      role: 'AI Research Scientist',
+      quote: 'I’m constantly challenged and inspired. The work we do here is truly pushing the boundaries of AI.',
+      avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
+      department: 'Intelligent Applications'
+    },
+    {
+      name: 'David Kim',
+      role: 'Cloud Architect',
+      quote: 'Global opportunities, cutting-edge tech, and a team that feels like family – that’s Biblioso.',
+      avatar: 'https://randomuser.me/api/portraits/men/67.jpg',
+      department: 'Cloud Infrastructure'
+    }
+  ]
+
+  const benefits = [
+    { icon: Coffee, title: 'Wellness Stipend', desc: 'Monthly stipend for gym, meditation, or any wellness activity.' },
+    { icon: Home, title: 'Remote-First', desc: 'Work from anywhere in the world with full support.' },
+    { icon: Plane, title: 'Global Retreats', desc: 'Annual company retreats in exciting destinations.' },
+    { icon: Gift, title: 'Birthday Bonus', desc: 'Take your birthday off + a special gift.' },
+    { icon: BookOpen, title: 'Learning Budget', desc: '$2,000/year for courses, conferences, or books.' },
+    { icon: Shield, title: 'Comprehensive Insurance', desc: 'Health, dental, vision, and life insurance for you and family.' },
+  ]
+
+  const hiringSteps = [
+    { step: 1, title: 'Application Review', desc: 'We review your resume and portfolio within 3-5 days.', icon: FileText },
+    { step: 2, title: 'Initial Call', desc: 'A 30-min chat with a recruiter to get to know you.', icon: Phone },
+    { step: 3, title: 'Technical Interview', desc: 'Deep dive into your skills with our engineering team.', icon: Code },
+    { step: 4, title: 'Team Interview', desc: 'Meet the team and learn about our culture.', icon: Users },
+    { step: 5, title: 'Offer', desc: 'Congratulations! We’ll send you an offer.', icon: Award }
+  ]
+
   return (
     <div ref={containerRef} className="bg-black overflow-hidden">
-      {/* Hero Section – Cinematic */}
-      <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
+      {/* Hero Section – Enhanced Cinematic */}
+      <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
         <motion.div
           style={{ x: mousePosition.x * 0.6, y: mousePosition.y * 0.6 }}
           className="absolute top-1/4 left-1/4 w-96 h-96 bg-cosmic-cyan/20 rounded-full blur-[120px]"
@@ -246,7 +321,7 @@ const Recruiting = () => {
         <div className="container mx-auto px-6 relative z-10 text-center">
           <motion.div
             style={{ opacity: heroOpacity, scale: heroScale }}
-            className="max-w-4xl mx-auto"
+            className="max-w-5xl mx-auto"
           >
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -257,37 +332,53 @@ const Recruiting = () => {
                 <Sparkles className="w-4 h-4 text-cosmic-cyan" />
                 <span className="text-xs text-gray-300 font-mono tracking-wider">// CAREERS AT BIBLIOSO</span>
               </div>
-              
-              <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tighter">
-                <span className="text-white">Build the</span>
-                <br />
-                <span className="bg-gradient-to-r from-cosmic-cyan via-cosmic-purple to-cosmic-cyan bg-clip-text text-transparent">
+
+              <h1 className="text-6xl md:text-8xl font-bold mb-6 tracking-tighter">
+                <motion.span
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 0.1 }}
+                  className="block text-white"
+                >
+                  Build the
+                </motion.span>
+                <motion.span
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 0.2 }}
+                  className="block bg-gradient-to-r from-cosmic-cyan via-cosmic-purple to-cosmic-cyan bg-clip-text text-transparent"
+                >
                   Future with Us
-                </span>
+                </motion.span>
               </h1>
-              
-              <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed">
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: 0.3 }}
+                className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed"
+              >
                 Join a team of innovators, engineers, and visionaries shaping the future of intelligent cloud experiences.
-              </p>
-              
-              <div className="flex flex-wrap justify-center gap-6">
-                <div className="flex items-center gap-2 text-gray-400">
-                  <TrendingUp className="w-5 h-5 text-cosmic-cyan" />
-                  <span>Fast-growing startup</span>
-                </div>
-                <div className="flex items-center gap-2 text-gray-400">
-                  <Users className="w-5 h-5 text-cosmic-cyan" />
-                  <span>Global team</span>
-                </div>
-                <div className="flex items-center gap-2 text-gray-400">
-                  <Award className="w-5 h-5 text-cosmic-cyan" />
-                  <span>Top-tier benefits</span>
-                </div>
-                <div className="flex items-center gap-2 text-gray-400">
-                  <Zap className="w-5 h-5 text-cosmic-cyan" />
-                  <span>Cutting-edge tech</span>
-                </div>
-              </div>
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: 0.4 }}
+                className="flex flex-wrap justify-center gap-6"
+              >
+                {[
+                  { icon: TrendingUp, label: 'Fast-growing startup' },
+                  { icon: Users, label: 'Global team' },
+                  { icon: Award, label: 'Top-tier benefits' },
+                  { icon: Zap, label: 'Cutting-edge tech' }
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-2 text-gray-400">
+                    <item.icon className="w-5 h-5 text-cosmic-cyan" />
+                    <span>{item.label}</span>
+                  </div>
+                ))}
+              </motion.div>
             </motion.div>
           </motion.div>
         </div>
@@ -301,7 +392,7 @@ const Recruiting = () => {
         </motion.div>
       </section>
 
-      {/* Filters – Sleek dark theme */}
+      {/* Filters – Enhanced with urgency chips */}
       <section className="sticky top-20 z-20 py-6 bg-black/80 backdrop-blur-md border-b border-white/10">
         <div className="container mx-auto px-6">
           <div className="flex flex-wrap gap-4 justify-center">
@@ -343,14 +434,28 @@ const Recruiting = () => {
                 ))}
               </select>
             </div>
+            <div className="flex gap-2">
+              {urgencies.map(urgency => (
+                <button
+                  key={urgency}
+                  onClick={() => setSelectedUrgency(urgency)}
+                  className={`px-4 py-1.5 rounded-full text-sm transition-all duration-200 ${selectedUrgency === urgency
+                      ? 'bg-cosmic-cyan/20 text-cosmic-cyan border border-cosmic-cyan/50'
+                      : 'bg-white/5 text-gray-400 hover:text-white hover:bg-white/10'
+                    }`}
+                >
+                  {urgency === 'all' ? 'All' : urgency === 'high' ? 'Urgent' : urgency === 'medium' ? 'Priority' : 'Normal'}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Job Listings – Full‑width animated panels, no cards */}
+      {/* Job Listings – Enhanced with hover tooltips */}
       <section className="py-16">
         <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto space-y-4">
+          <div className="max-w-5xl mx-auto space-y-4">
             {filteredJobs.map((job, idx) => (
               <motion.div
                 key={job.id}
@@ -396,7 +501,7 @@ const Recruiting = () => {
                     <ArrowRight className="w-4 h-4 text-cosmic-cyan group-hover:translate-x-1 transition-transform" />
                   </div>
                 </div>
-                {/* Bottom glowing line on hover */}
+                {/* Bottom glowing line */}
                 <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cosmic-cyan/0 via-cosmic-cyan/80 to-cosmic-cyan/0 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
               </motion.div>
             ))}
@@ -409,7 +514,85 @@ const Recruiting = () => {
         </div>
       </section>
 
-      {/* Why Join Us – No numbers, just storytelling */}
+      {/* Employee Testimonials – Carousel */}
+      <section className="py-24 bg-gradient-to-b from-black to-zinc-950">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <span className="text-cosmic-cyan font-mono text-xs tracking-wider">// VOICES OF BIBLIOSO</span>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mt-3">What Our People Say</h2>
+          </motion.div>
+
+          <div className="relative max-w-4xl mx-auto">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTestimonial}
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -50 }}
+                transition={{ duration: 0.5 }}
+                className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 text-center"
+              >
+                <div className="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden border-2 border-cosmic-cyan">
+                  <img src={testimonials[activeTestimonial].avatar} alt="" className="w-full h-full object-cover" />
+                </div>
+                <p className="text-gray-300 text-lg italic mb-4">"{testimonials[activeTestimonial].quote}"</p>
+                <div className="text-white font-semibold">{testimonials[activeTestimonial].name}</div>
+                <div className="text-cosmic-cyan text-sm">{testimonials[activeTestimonial].role}, {testimonials[activeTestimonial].department}</div>
+              </motion.div>
+            </AnimatePresence>
+            <div className="flex justify-center gap-2 mt-6">
+              {testimonials.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActiveTestimonial(i)}
+                  className={`w-2 h-2 rounded-full transition-all duration-200 ${activeTestimonial === i ? 'w-6 bg-cosmic-cyan' : 'bg-white/30'}`}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Benefits Showcase – Grid with hover flip */}
+      <section className="py-24">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <span className="text-cosmic-cyan font-mono text-xs tracking-wider">// PERKS & BENEFITS</span>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mt-3">We Take Care of You</h2>
+          </motion.div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {benefits.map((benefit, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05 }}
+                whileHover={{ y: -5 }}
+                className="group bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-cosmic-cyan/50 transition-all duration-300"
+              >
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-cosmic-cyan/20 to-cosmic-purple/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                  <benefit.icon className="w-6 h-6 text-cosmic-cyan" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-2">{benefit.title}</h3>
+                <p className="text-gray-400 text-sm">{benefit.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Hiring Process – Timeline */}
       <section className="py-24 bg-gradient-to-b from-black to-zinc-950">
         <div className="container mx-auto px-6">
           <motion.div
@@ -418,38 +601,29 @@ const Recruiting = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <span className="text-cosmic-cyan font-mono text-xs tracking-wider">// WHY BIBLIOSO</span>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mt-3">
-              More Than a Job
-            </h2>
-            <p className="text-gray-400 mt-4 max-w-2xl mx-auto">
-              We're building something extraordinary. Here's why you should be part of it.
-            </p>
+            <span className="text-cosmic-cyan font-mono text-xs tracking-wider">// YOUR JOURNEY</span>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mt-3">Our Hiring Process</h2>
           </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
-            {[
-              { icon: TrendingUp, title: 'Growth & Impact', desc: 'Work on challenging problems that shape the future of cloud computing and AI', color: 'from-cyan-500 to-blue-500' },
-              { icon: Users, title: 'Inclusive Culture', desc: 'Join a diverse, global team that values collaboration and innovation', color: 'from-purple-500 to-pink-500' },
-              { icon: Award, title: 'Competitive Benefits', desc: 'Enjoy top-tier compensation, equity, health benefits, and flexible work arrangements', color: 'from-green-500 to-emerald-500' },
-              { icon: Globe, title: 'Global Opportunities', desc: 'Work with teams across 4 continents and 50+ countries', color: 'from-orange-500 to-red-500' }
-            ].map((item, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                whileHover={{ y: -5 }}
-                className="text-center p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-cosmic-cyan/50 transition-all"
-              >
-                <div className={`inline-flex p-3 rounded-xl bg-gradient-to-r ${item.color} bg-opacity-20 mb-4`}>
-                  <item.icon className="w-8 h-8 text-cosmic-cyan" />
-                </div>
-                <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
-                <p className="text-gray-400 text-sm">{item.desc}</p>
-              </motion.div>
-            ))}
+          <div className="relative">
+            <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-cosmic-cyan/30 via-cosmic-purple/30 to-transparent hidden md:block" />
+            <div className="space-y-8 md:space-y-0 md:grid md:grid-cols-5 md:gap-4">
+              {hiringSteps.map((step, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="relative text-center"
+                >
+                  <div className="w-12 h-12 mx-auto rounded-full bg-gradient-to-r from-cosmic-cyan to-cosmic-purple flex items-center justify-center text-white font-bold text-lg mb-4">
+                    {step.step}
+                  </div>
+                  <h3 className="text-lg font-semibold text-white mb-2">{step.title}</h3>
+                  <p className="text-gray-400 text-sm">{step.desc}</p>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -470,15 +644,22 @@ const Recruiting = () => {
             <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
               We're always looking for talented individuals. Send us your resume and we'll reach out when the right opportunity arises.
             </p>
-            <Button variant="primary" size="lg">
+            <Button variant="primary" size="lg" onClick={() => setShowOpenAppModal(true)} className="group">
               Send Open Application
-              <ArrowRight className="ml-2 w-5 h-5" />
+              <motion.span
+                className="inline-block ml-2"
+                animate={{ x: 0 }}
+                whileHover={{ x: 6 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              >
+                <ArrowRight className="w-5 h-5" />
+              </motion.span>
             </Button>
           </motion.div>
         </div>
       </section>
 
-      {/* Application Modal – already premium, kept unchanged */}
+      {/* Application Modal – For specific job */}
       <AnimatePresence>
         {selectedJob && (
           <motion.div
@@ -550,22 +731,112 @@ const Recruiting = () => {
                         <p className="text-gray-300 text-sm mb-4">Fill out the form below. Our team will review your application within 3-5 business days.</p>
                         <form onSubmit={handleSubmit} className="space-y-4">
                           <div className="grid md:grid-cols-2 gap-4">
-                            <div><label className="block text-sm font-medium text-gray-300 mb-2">Full Name <span className="text-cosmic-cyan">*</span></label><input type="text" required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-cosmic-cyan" placeholder="John Doe" /></div>
-                            <div><label className="block text-sm font-medium text-gray-300 mb-2">Email <span className="text-cosmic-cyan">*</span></label><input type="email" required value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-cosmic-cyan" placeholder="john@example.com" /></div>
+                            <div><label className="block text-sm font-medium text-gray-300 mb-2">Full Name <span className="text-cosmic-cyan">*</span></label><input type="text" required value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-cosmic-cyan" placeholder="John Doe" /></div>
+                            <div><label className="block text-sm font-medium text-gray-300 mb-2">Email <span className="text-cosmic-cyan">*</span></label><input type="email" required value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-cosmic-cyan" placeholder="john@example.com" /></div>
                           </div>
                           <div className="grid md:grid-cols-2 gap-4">
-                            <div><label className="block text-sm font-medium text-gray-300 mb-2">Phone</label><input type="tel" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white" placeholder="+1 (555) 123-4567" /></div>
-                            <div><label className="block text-sm font-medium text-gray-300 mb-2">Experience <span className="text-cosmic-cyan">*</span></label><select required value={formData.experience} onChange={e => setFormData({...formData, experience: e.target.value})} className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white"><option value="">Select</option><option value="0-2">0-2 years</option><option value="3-5">3-5 years</option><option value="6-8">6-8 years</option><option value="9+">9+ years</option></select></div>
+                            <div><label className="block text-sm font-medium text-gray-300 mb-2">Phone</label><input type="tel" value={formData.phone} onChange={e => setFormData({ ...formData, phone: e.target.value })} className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white" placeholder="+1 (555) 123-4567" /></div>
+                            <div><label className="block text-sm font-medium text-gray-300 mb-2">Experience <span className="text-cosmic-cyan">*</span></label><select required value={formData.experience} onChange={e => setFormData({ ...formData, experience: e.target.value })} className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white"><option value="">Select</option><option value="0-2">0-2 years</option><option value="3-5">3-5 years</option><option value="6-8">6-8 years</option><option value="9+">9+ years</option></select></div>
                           </div>
                           <div><label className="block text-sm font-medium text-gray-300 mb-2">Resume <span className="text-cosmic-cyan">*</span></label><input type="file" required accept=".pdf,.doc,.docx" onChange={handleFileChange} className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-cosmic-cyan/20 file:text-cosmic-cyan" /><p className="text-xs text-gray-500 mt-1">PDF, DOC, DOCX (Max 5MB)</p></div>
-                          <div><label className="block text-sm font-medium text-gray-300 mb-2">Cover Letter</label><textarea rows={3} value={formData.coverLetter} onChange={e => setFormData({...formData, coverLetter: e.target.value})} className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white resize-none" placeholder="Why are you a great fit?" /></div>
-                          <div className="flex gap-4 pt-2"><Button type="submit" variant="primary" className="flex-1"><Send className="w-4 h-4 mr-2" />Submit Application</Button><Button type="button" variant="outline" onClick={() => setSelectedJob(null)}>Cancel</Button></div>
+                          <div><label className="block text-sm font-medium text-gray-300 mb-2">Cover Letter</label><textarea rows={3} value={formData.coverLetter} onChange={e => setFormData({ ...formData, coverLetter: e.target.value })} className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white resize-none" placeholder="Why are you a great fit?" /></div>
+                          <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                            <Button type="submit" variant="primary" size="md" className="flex-1">
+                              <Send className="w-4 h-4 mr-2 inline-block" />
+                              Submit Application
+                            </Button>
+                            <Button type="button" variant="outline" size="md" onClick={() => setSelectedJob(null)} className="flex-1 hover:!bg-red-600 hover:!border-red-600 hover:!text-white transition-colors">
+                              Cancel
+                            </Button>
+                          </div>
                         </form>
                       </div>
                       <div className="p-4 bg-white/5 rounded-xl text-center text-xs text-gray-500">By submitting, you agree to our <a href="#" className="text-cosmic-cyan">Privacy Policy</a> and <a href="#" className="text-cosmic-cyan">Terms</a>.</div>
                     </div>
                   </div>
                 </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Open Application Modal */}
+      <AnimatePresence>
+        {showOpenAppModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md"
+            onClick={() => setShowOpenAppModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 20 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="bg-gradient-to-br from-space-navy to-space-dark rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-hidden border border-white/20 shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="relative">
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cosmic-cyan via-cosmic-purple to-cosmic-cyan" />
+                <div className="p-6 border-b border-white/10 bg-gradient-to-r from-cosmic-cyan/5 to-cosmic-purple/5">
+                  <div className="flex justify-between items-center">
+                    <h2 className="text-2xl font-bold text-white">Open Application</h2>
+                    <button onClick={() => setShowOpenAppModal(false)} className="p-2 hover:bg-white/10 rounded-xl transition">
+                      <X className="w-5 h-5 text-gray-400 hover:text-cosmic-cyan" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div className="p-6 overflow-y-auto max-h-[calc(85vh-100px)]">
+                <form onSubmit={handleOpenApplicationSubmit} className="space-y-4">
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Full Name <span className="text-cosmic-cyan">*</span></label>
+                      <input type="text" required value={openAppFormData.name} onChange={e => setOpenAppFormData({ ...openAppFormData, name: e.target.value })} className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-cosmic-cyan" placeholder="John Doe" />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Email <span className="text-cosmic-cyan">*</span></label>
+                      <input type="email" required value={openAppFormData.email} onChange={e => setOpenAppFormData({ ...openAppFormData, email: e.target.value })} className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-cosmic-cyan" placeholder="john@example.com" />
+                    </div>
+                  </div>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Phone</label>
+                      <input type="tel" value={openAppFormData.phone} onChange={e => setOpenAppFormData({ ...openAppFormData, phone: e.target.value })} className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white" placeholder="+1 (555) 123-4567" />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Experience <span className="text-cosmic-cyan">*</span></label>
+                      <select required value={openAppFormData.experience} onChange={e => setOpenAppFormData({ ...openAppFormData, experience: e.target.value })} className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white">
+                        <option value="">Select</option>
+                        <option value="0-2">0-2 years</option>
+                        <option value="3-5">3-5 years</option>
+                        <option value="6-8">6-8 years</option>
+                        <option value="9+">9+ years</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Resume <span className="text-cosmic-cyan">*</span></label>
+                    <input type="file" required accept=".pdf,.doc,.docx" onChange={handleOpenAppFileChange} className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-cosmic-cyan/20 file:text-cosmic-cyan" />
+                    <p className="text-xs text-gray-500 mt-1">PDF, DOC, DOCX (Max 5MB)</p>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Cover Letter</label>
+                    <textarea rows={3} value={openAppFormData.coverLetter} onChange={e => setOpenAppFormData({ ...openAppFormData, coverLetter: e.target.value })} className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white resize-none" placeholder="Why are you a great fit?" />
+                  </div>
+                  <div className="flex gap-3 pt-2">
+                    <Button type="submit" variant="primary" className="flex-1">
+                      <Send className="w-4 h-4 mr-2 inline-block" />
+                      Submit Application
+                    </Button>
+                    <Button type="button" variant="outline" onClick={() => setShowOpenAppModal(false)}>
+                      Cancel
+                    </Button>
+                  </div>
+                </form>
               </div>
             </motion.div>
           </motion.div>

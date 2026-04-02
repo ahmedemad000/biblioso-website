@@ -1,22 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
   /* Fonts */
-  --font-satoshi: 'Satoshi', sans-serif;
-  --font-inter: 'Inter', sans-serif;
-  
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
   /* Colors - Dark Space Theme */
   --color-space-dark: #050B1A;
   --color-space-navy: #0A0F1F;
   --color-space-deep: #0B1120;
   --color-space-light: #111827;
-  
-  /* Colors - Cosmic Accents */
-  --color-cosmic-cyan: #00F5FF;
-  --color-cosmic-purple: #A855F7;
+
+  /* Colors - Light Blue Accents (professional gradient) */
+  --color-accent-deep: #4F9FFF;     /* vibrant blue */
+  --color-accent-mid: #7AB2FF;      /* medium sky blue */
+  --color-accent-light: #A3C9FF;    /* soft light blue */
+  --color-accent-soft: #C2DEFF;     /* very light blue */
+
+  /* Keep existing variable names for compatibility */
+  --color-cosmic-cyan: var(--color-accent-mid);
+  --color-cosmic-purple: var(--color-accent-light);
   --color-cosmic-blue: #3B82F6;
   --color-cosmic-electric: #06B6D4;
-  
+
   /* Gray Scale */
   --color-gray-50: #F9FAFB;
   --color-gray-100: #F3F4F6;
@@ -28,13 +35,11 @@
   --color-gray-700: #374151;
   --color-gray-800: #1F2937;
   --color-gray-900: #111827;
-  
+
   /* Animations */
   --animate-gradient: gradient 6s ease infinite;
   --animate-float: float 6s ease-in-out infinite;
-  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  
-  /* Background Size */
+  --animate-pulse-slow: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   --bg-size-300: 300% 300%;
 }
 
@@ -50,61 +55,26 @@
 }
 
 @keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.05); }
 }
 
 /* Custom Utilities */
-@import "tailwindcss";
-
-@theme {
-  --font-satoshi: 'Satoshi', sans-serif;
-  --font-inter: 'Inter', sans-serif;
-  
-  --color-space-dark: #050B1A;
-  --color-space-navy: #0A0F1F;
-  --color-space-deep: #0B1120;
-  --color-space-light: #111827;
-  
-  --color-cosmic-cyan: #00F5FF;
-  --color-cosmic-purple: #A855F7;
-  --color-cosmic-blue: #3B82F6;
-  --color-cosmic-electric: #06B6D4;
-  
-  --animate-gradient: gradient 6s ease infinite;
-  --animate-float: float 6s ease-in-out infinite;
-  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-@keyframes gradient {
-  0%, 100% {
-    background-size: 300% 300%;
-    background-position: 0% 50%;
-  }
-  50% {
-    background-size: 300% 300%;
-    background-position: 100% 50%;
-  }
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
-}
-
 @utility gradient-text {
   background-clip: text;
   color: transparent;
-  background-image: linear-gradient(to right, var(--color-cosmic-cyan), var(--color-cosmic-purple), var(--color-cosmic-cyan));
-  background-size: 300% 300%;
+  background-image: linear-gradient(
+    to right,
+    var(--color-accent-deep),
+    var(--color-accent-mid),
+    var(--color-accent-light)
+  );
+  background-size: 200% auto;
   animation: gradient 6s ease infinite;
 }
 
@@ -116,19 +86,15 @@
 
 @utility grid-pattern {
   background-image: 
-    linear-gradient(rgba(0, 245, 255, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 245, 255, 0.1) 1px, transparent 1px);
+    linear-gradient(rgba(79, 159, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(79, 159, 255, 0.1) 1px, transparent 1px);
   background-size: 50px 50px;
 }
 
-@utility animation-delay-2000 {
-  animation-delay: 2s;
-}
+@utility animation-delay-2000 { animation-delay: 2s; }
+@utility animation-delay-4000 { animation-delay: 4s; }
 
-@utility animation-delay-4000 {
-  animation-delay: 4s;
-}
-
+/* Base Styles */
 * {
   border-color: var(--color-gray-800);
 }
@@ -140,31 +106,16 @@ html {
 body {
   background-color: var(--color-space-dark);
   color: var(--color-gray-100);
-  font-family: var(--font-inter);
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
-
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-satoshi);
-  font-weight: bold;
+  font-family: var(--font-display);
+  font-weight: 700;
   letter-spacing: -0.025em;
-}
-
-
-
-
-@keyframes pulse-slow {
-  0%, 100% {
-    opacity: 0.3;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.6;
-    transform: scale(1.05);
-  }
 }
 
 .animate-pulse-slow {
@@ -177,12 +128,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .grid-pattern {
   background-image: 
-    linear-gradient(rgba(0, 245, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 245, 255, 0.05) 1px, transparent 1px);
+    linear-gradient(rgba(79, 159, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(79, 159, 255, 0.05) 1px, transparent 1px);
   background-size: 40px 40px;
 }
 
-/*  Custom scrollbar for modal content */
+/* Custom scrollbar for modal content */
 .modal-scroll::-webkit-scrollbar {
   width: 8px;
 }
@@ -191,9 +142,9 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 4px;
 }
 .modal-scroll::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #00F5FF, #A855F7);
+  background: linear-gradient(135deg, var(--color-accent-mid), var(--color-accent-light));
   border-radius: 4px;
 }
 .modal-scroll::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #A855F7, #00F5FF);
+  background: linear-gradient(135deg, var(--color-accent-light), var(--color-accent-mid));
 }

@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform, useSpring, useMotionValue, AnimatePres
 import { Link } from 'react-router-dom'
 import { 
   ArrowRight, Cpu, Cloud, Bot, BarChart3, Shield, Zap, Sparkles, Globe, Layers, 
-  ChevronRight, Network, Database, CloudCog, CircuitBoard, Orbit
+  ChevronRight, Network, Database, CloudCog, CircuitBoard, Orbit, X, Play,
 } from 'lucide-react'
 import Button from '../components/ui/Button'
 
@@ -63,6 +63,7 @@ const Home = () => {
   const containerRef = useRef(null)
   const heroRef = useRef(null)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [showVideoModal, setShowVideoModal] = useState(false)
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -255,23 +256,28 @@ const Home = () => {
                   transition={{ duration: 0.3, delay: 0.5 }}
                   className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12"
                 >
-                  <MagneticButton>
-                    <Button variant="primary" size="lg" className="group relative overflow-hidden px-8 py-4">
-                      <span className="relative z-10 flex items-center gap-2">
-                        Explore Services
-                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-150" />
-                      </span>
-                      <motion.div
-                        initial={{ x: "-100%" }}
-                        whileHover={{ x: "100%" }}
-                        transition={{ duration: 0.4 }}
-                        className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent"
-                      />
-                    </Button>
-                  </MagneticButton>
+                  {/* Explore Services now links to Core Competencies */}
+                  <Link to="/core-competencies">
+                    <MagneticButton>
+                      <Button variant="primary" size="lg" className="group relative overflow-hidden px-8 py-4">
+                        <span className="relative z-10 flex items-center gap-2">
+                          Explore Services
+                          <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-150" />
+                        </span>
+                        <motion.div
+                          initial={{ x: "-100%" }}
+                          whileHover={{ x: "100%" }}
+                          transition={{ duration: 0.4 }}
+                          className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent"
+                        />
+                      </Button>
+                    </MagneticButton>
+                  </Link>
                   
-                  <MagneticButton>
+                  {/* Watch Demo opens video modal */}
+                  <MagneticButton onClick={() => setShowVideoModal(true)}>
                     <Button variant="outline" size="lg" className="border-white/20 hover:border-cosmic-cyan hover:text-cosmic-cyan transition-all duration-150">
+                      <Play className="w-5 h-5 mr-2 inline-block" />
                       Watch Demo
                     </Button>
                   </MagneticButton>
@@ -395,7 +401,7 @@ const Home = () => {
         </motion.div>
       </section>
 
-      {/* Core Tenets Section (unchanged) */}
+      {/* Core Tenets Section */}
       <section className="py-24 bg-gradient-to-b from-black to-zinc-950 overflow-hidden">
         <div className="container mx-auto px-6">
           <motion.div
@@ -567,7 +573,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Technology Stack - Trust Badges (unchanged) */}
+      {/* Technology Stack - Trust Badges */}
       <section className="py-24 bg-gradient-to-b from-black to-zinc-950">
         <div className="container mx-auto px-6">
           <motion.div
@@ -600,52 +606,93 @@ const Home = () => {
       </section>
 
       {/* CTA Section – No numbers or statistics */}
-      <section className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0">
-          <motion.div
-            animate={{ scale: [1, 1.2, 1] }}
-            transition={{ duration: 3, repeat: Infinity }}
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cosmic-cyan/10 rounded-full blur-[120px]"
-          />
+    <section className="py-24 relative overflow-hidden">
+  <div className="absolute inset-0">
+    <motion.div
+      animate={{ scale: [1, 1.2, 1] }}
+      transition={{ duration: 3, repeat: Infinity }}
+      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cosmic-cyan/10 rounded-full blur-[120px]"
+    />
+  </div>
+  
+  <div className="container mx-auto px-6 text-center relative">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.3 }}
+    >
+      <motion.div
+        animate={{ rotate: 360 }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        className="inline-block mb-6"
+      >
+        <div className="w-12 h-12 rounded-full border border-cosmic-cyan flex items-center justify-center">
+          <div className="w-1.5 h-1.5 rounded-full bg-cosmic-cyan" />
         </div>
-        
-        <div className="container mx-auto px-6 text-center relative">
+      </motion.div>
+      
+      <h2 className="text-4xl md:text-6xl font-bold text-white mb-4 tracking-tighter">
+        Ready to Transform<br />
+        <span className="text-cosmic-cyan">Your Business?</span>
+      </h2>
+      
+      <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
+        Join leading enterprises that trust Biblioso for their engineering transformation
+      </p>
+      
+      <Link to="/contact">
+        <MagneticButton>
+          <Button variant="primary" size="lg" className="group px-8 py-4">
+            <span className="flex items-center gap-2">
+              Get in Touch
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-150" />
+            </span>
+          </Button>
+        </MagneticButton>
+      </Link>
+    </motion.div>
+  </div>
+</section>
+
+      {/* Video Modal */}
+      <AnimatePresence>
+        {showVideoModal && (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md"
+            onClick={() => setShowVideoModal(false)}
           >
             <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              className="inline-block mb-6"
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="relative max-w-4xl w-full bg-black rounded-2xl overflow-hidden border border-white/20 shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
             >
-              <div className="w-12 h-12 rounded-full border border-cosmic-cyan flex items-center justify-center">
-                <div className="w-1.5 h-1.5 rounded-full bg-cosmic-cyan" />
+              <button
+                onClick={() => setShowVideoModal(false)}
+                className="absolute top-4 right-4 z-10 p-2 bg-black/50 hover:bg-black/70 rounded-full transition-colors"
+              >
+                <X className="w-6 h-6 text-white" />
+              </button>
+              <div className="aspect-video">
+                <iframe
+                  className="w-full h-full"
+                  src="https://www.youtube.com/embed/nVyD6THcvDQ?autoplay=1&rel=0"
+                  title="Demo Video"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
               </div>
             </motion.div>
-            
-            <h2 className="text-4xl md:text-6xl font-bold text-white mb-4 tracking-tighter">
-              Ready to Transform<br />
-              <span className="text-cosmic-cyan">Your Business?</span>
-            </h2>
-            
-            <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
-              Join leading enterprises that trust Biblioso for their engineering transformation
-            </p>
-            
-            <MagneticButton>
-              <Button variant="primary" size="lg" className="group px-8 py-4">
-                <span className="flex items-center gap-2">
-                  Get in Touch
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-150" />
-                </span>
-              </Button>
-            </MagneticButton>
           </motion.div>
-        </div>
-      </section>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

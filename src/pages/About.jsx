@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion'
-import { Target, Eye, Sparkles, Globe, Users, Cpu, Brain, CircuitBoard, ArrowUpRight, Quote, MapPin, Zap, Shield } from 'lucide-react'
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
+import { Target, Eye, Sparkles, Users, Cpu, Brain, CircuitBoard, ArrowUpRight, Quote, Globe, MapPin, Link   } from 'lucide-react'
 
 const About = () => {
   const containerRef = useRef(null)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"]
@@ -32,10 +32,10 @@ const About = () => {
   ]
 
   const locations = [
-    { region: 'North America', cities: 'Washington, Texas', vibe: 'Innovation Hub', flag: '🇺🇸' },
-    { region: 'EMEA', cities: 'Ireland, Dubai, Jordan', vibe: 'Strategic Center', flag: '🇪🇺' },
-    { region: 'Latin America', cities: 'Colombia, Mexico, Brazil', vibe: 'Talent Nexus', flag: '🌎' },
-    { region: 'Asia Pacific', cities: 'India, Taiwan', vibe: 'R&D Powerhouse', flag: '🌏' }
+    { region: 'North America', cities: 'Washington, Texas', vibe: 'Innovation Hub', flag: '🇺🇸', timezone: 'EST/PST' },
+    { region: 'EMEA', cities: 'Ireland, Dubai, Jordan', vibe: 'Strategic Center', flag: '🇪🇺', timezone: 'GMT/GST' },
+    { region: 'Latin America', cities: 'Colombia, Mexico, Brazil', vibe: 'Talent Nexus', flag: '🌎', timezone: 'COT/CST/BRT' },
+    { region: 'Asia Pacific', cities: 'India, Taiwan', vibe: 'R&D Powerhouse', flag: '🌏', timezone: 'IST/CST' }
   ]
 
   const milestones = [
@@ -239,82 +239,190 @@ const About = () => {
         </div>
       </section>
 
-      {/* Global Presence – Brutalist Grid */}
-      <section className="py-32 bg-black">
-        <div className="container mx-auto px-6">
+      {/* Global Presence – Modern Location Cards */}
+      <section className="py-32 relative overflow-hidden bg-gradient-to-b from-black to-zinc-950">
+        <div className="container mx-auto px-6 relative z-10">
           <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mb-20"
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
           >
             <span className="text-cosmic-cyan font-mono text-sm tracking-wider">// WORLDWIDE FOOTPRINT</span>
-            <h2 className="text-4xl md:text-6xl font-bold text-white mt-4 tracking-tighter">Global. By Design.</h2>
+            <h2 className="text-4xl md:text-6xl font-bold text-white mt-4 tracking-tighter">
+              Global. <span className="text-cosmic-cyan">By Design.</span>
+            </h2>
+            <p className="text-gray-400 mt-4 max-w-2xl mx-auto">
+              Strategically located to serve our clients across time zones, delivering excellence wherever you are.
+            </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {locations.map((loc, idx) => (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, x: idx % 2 === 0 ? -20 : 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                className="bg-black p-8 group hover:bg-white/5 transition-colors"
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                whileHover={{ y: -8 }}
+                className="group relative"
               >
-                <div className="text-4xl mb-4">{loc.flag}</div>
-                <h3 className="text-2xl font-bold text-white mb-2">{loc.region}</h3>
-                <p className="text-gray-400 mb-3">{loc.cities}</p>
-                <div className="inline-block px-3 py-1 border border-cosmic-cyan/30 rounded-full">
-                  <span className="text-cosmic-cyan text-xs font-mono">{loc.vibe}</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-cosmic-cyan/20 to-cosmic-purple/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-cosmic-cyan/50 transition-all duration-300">
+                  <div className="text-5xl mb-4">{loc.flag}</div>
+                  <h3 className="text-2xl font-bold text-white mb-1 group-hover:text-cosmic-cyan transition-colors">
+                    {loc.region}
+                  </h3>
+                  <p className="text-gray-400 text-sm mb-3">{loc.cities}</p>
+                  <div className="inline-block px-3 py-1 border border-cosmic-cyan/30 rounded-full mb-4">
+                    <span className="text-cosmic-cyan text-xs font-mono">{loc.vibe}</span>
+                  </div>
+                  <div className="border-t border-white/10 pt-3 mt-2">
+                    <p className="text-gray-500 text-xs flex items-center gap-1">
+                      <MapPin className="w-3 h-3" /> {loc.timezone}
+                    </p>
+                  </div>
                 </div>
               </motion.div>
             ))}
+          </div>
+
+          {/* Decorative global network line (abstract) */}
+          <div className="relative mt-16 text-center">
+            <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/5 border border-white/10">
+              <span className="w-2 h-2 rounded-full bg-cosmic-cyan animate-pulse" />
+              <span className="text-gray-400 text-sm">24/7 global coverage across all time zones</span>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Vision & Mission – Diagonal Split */}
-      <section className="py-32 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-cosmic-cyan/5 via-transparent to-cosmic-purple/5" />
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="border-l-2 border-cosmic-cyan pl-8"
-            >
-              <Eye className="w-12 h-12 text-cosmic-cyan mb-6" />
-              <h3 className="text-3xl font-bold text-white mb-4">Vision</h3>
-              <p className="text-gray-300 text-lg leading-relaxed">
-                To become the definitive engineering partner for the world's most ambitious organizations, architecting the intelligent infrastructure that powers tomorrow.
-              </p>
-              <div className="mt-6 flex items-center gap-2 text-cosmic-cyan">
-                <span className="font-mono text-sm">2025 + beyond</span>
-                <ArrowUpRight className="w-4 h-4" />
-              </div>
-            </motion.div>
+      {/* Vision & Mission – Modern Split Cards */}
+{/* Vision & Mission – Modern Diagonal Split */}
+<section className="py-32 relative overflow-hidden">
+  {/* Animated background gradient */}
+  <motion.div
+    className="absolute inset-0"
+    animate={{
+      background: [
+        'radial-gradient(circle at 20% 30%, rgba(79,159,255,0.08) 0%, transparent 50%)',
+        'radial-gradient(circle at 80% 70%, rgba(168,85,247,0.08) 0%, transparent 50%)',
+        'radial-gradient(circle at 20% 30%, rgba(79,159,255,0.08) 0%, transparent 50%)',
+      ]
+    }}
+    transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
+  />
 
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="border-l-2 border-cosmic-purple pl-8"
-            >
-              <Target className="w-12 h-12 text-cosmic-purple mb-6" />
-              <h3 className="text-3xl font-bold text-white mb-4">Mission</h3>
-              <p className="text-gray-300 text-lg leading-relaxed">
-                Empower enterprises with AI-driven engineering solutions that don't just solve problems—they redefine what's possible.
-              </p>
-              <div className="mt-6 flex items-center gap-2 text-cosmic-purple">
-                <span className="font-mono text-sm">Executed daily</span>
-                <ArrowUpRight className="w-4 h-4" />
-              </div>
-            </motion.div>
-          </div>
+  <div className="container mx-auto px-6 relative">
+    {/* Diagonal divider line */}
+    <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-cosmic-cyan/30 to-transparent hidden lg:block" />
+
+    <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
+      {/* Vision */}
+      <motion.div
+        initial={{ opacity: 0, x: -50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8, type: "spring", stiffness: 80 }}
+        className="relative text-right lg:text-left"
+      >
+        {/* Decorative large number */}
+        <div className="text-8xl md:text-9xl font-bold text-white/5 absolute -top-12 right-0 lg:left-0 lg:right-auto select-none pointer-events-none">
+          01
         </div>
-      </section>
+        
+        <div className="relative z-10 pt-8">
+          <motion.div
+            initial={{ width: 0 }}
+            whileInView={{ width: 60 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="h-px bg-gradient-to-r from-cosmic-cyan to-transparent mb-8 ml-auto lg:ml-0"
+          />
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <div className="flex items-center gap-3 mb-6 justify-end lg:justify-start">
+              <Eye className="w-8 h-8 text-cosmic-cyan" />
+              <span className="text-cosmic-cyan font-mono text-sm tracking-wider">PERSPECTIVE</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+              Vision
+            </h2>
+            <p className="text-gray-300 text-lg leading-relaxed mb-8 max-w-lg ml-auto lg:ml-0">
+              To become the definitive engineering partner for the world's most ambitious organizations, architecting the intelligent infrastructure that powers tomorrow.
+            </p>
+            <motion.div
+              className="inline-flex items-center gap-2 text-cosmic-cyan group"
+              whileHover={{ x: 5 }}
+              transition={{ duration: 0.2 }}
+            >
+              <span className="text-sm font-mono">2025 + beyond</span>
+              <ArrowUpRight className="w-4 h-4" />
+            </motion.div>
+          </motion.div>
+        </div>
+      </motion.div>
+
+      {/* Mission */}
+      <motion.div
+        initial={{ opacity: 0, x: 50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 80 }}
+        className="relative"
+      >
+        {/* Decorative large number */}
+        <div className="text-8xl md:text-9xl font-bold text-white/5 absolute -top-12 left-0 select-none pointer-events-none">
+          02
+        </div>
+        
+        <div className="relative z-10 pt-8">
+          <motion.div
+            initial={{ width: 0 }}
+            whileInView={{ width: 60 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="h-px bg-gradient-to-r from-cosmic-purple to-transparent mb-8"
+          />
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+          >
+            <div className="flex items-center gap-3 mb-6">
+              <Target className="w-8 h-8 text-cosmic-purple" />
+              <span className="text-cosmic-purple font-mono text-sm tracking-wider">PURPOSE</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+              Mission
+            </h2>
+            <p className="text-gray-300 text-lg leading-relaxed mb-8 max-w-lg">
+              Empower enterprises with AI-driven engineering solutions that don't just solve problems—they redefine what's possible.
+            </p>
+            <motion.div
+              className="inline-flex items-center gap-2 text-cosmic-purple group"
+              whileHover={{ x: 5 }}
+              transition={{ duration: 0.2 }}
+            >
+              <span className="text-sm font-mono">Executed daily</span>
+              <ArrowUpRight className="w-4 h-4" />
+            </motion.div>
+          </motion.div>
+        </div>
+      </motion.div>
+    </div>
+  </div>
+</section>
 
       {/* CTA – Minimalist Challenge */}
       <section className="py-32 border-t border-white/5">
@@ -354,4 +462,4 @@ const About = () => {
   )
 }
 
-export default About
+export default About  

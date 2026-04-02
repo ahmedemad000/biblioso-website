@@ -160,7 +160,7 @@ const Header = () => {
             {/* Logo only – no background, no animation, larger size */}
             <Link to="/" className="relative group">
               <div className="flex items-center">
-                <div className="w-32 h-32 flex items-center justify-center">
+                <div className="w-65 h-32 flex items-center justify-center">
                   <img src={logo} alt="Biblioso" className="w-full h-full object-contain" />
                 </div>
               </div>

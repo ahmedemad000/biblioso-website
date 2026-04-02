@@ -111,12 +111,7 @@ const CoreCompetencies = () => {
     }
   ]
 
-  const stats = [
-    { value: '500+', label: 'Enterprise Clients', icon: Users },
-    { value: '50+', label: 'Countries Served', icon: Globe },
-    { value: '1000+', label: 'Projects Completed', icon: Layers },
-    { value: '99.9%', label: 'Client Satisfaction', icon: TrendingUp }
-  ]
+
 
   return (
     <div ref={containerRef} className="bg-black overflow-hidden">
@@ -178,28 +173,7 @@ const CoreCompetencies = () => {
         </motion.div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-16 border-y border-white/5">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {stats.map((stat, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ y: -3 }}
-                className="text-center"
-              >
-                <stat.icon className="w-8 h-8 text-cosmic-cyan mx-auto mb-3" />
-                <div className="text-3xl md:text-4xl font-bold text-white mb-1">{stat.value}</div>
-                <div className="text-sm text-gray-400">{stat.label}</div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+    
 
       {/* Competencies Grid - Main Section */}
       <section className="py-24">
