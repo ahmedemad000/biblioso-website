@@ -11,6 +11,7 @@ const Recruiting = lazy(() => import('./pages/Recruiting'))
 const CoreCompetencies = lazy(() => import('./pages/CoreCompetencies'))
 const Contact = lazy(() => import('./pages/Contact'))
 const Industries = lazy(() => import('./pages/Industries'))
+const Blog = lazy(() => import('./pages/Blog'))   // <-- ADDED
 
 // Service Pages
 const ProfessionalServices = lazy(() => import('./pages/services/ProfessionalServices'))
@@ -61,6 +62,11 @@ function App() {
           <Route path="industries" element={
             <Suspense fallback={<LoadingSpinner />}>
               <Industries />
+            </Suspense>
+          } />
+          <Route path="blog" element={                                    // <-- ADDED
+            <Suspense fallback={<LoadingSpinner />}>
+              <Blog />
             </Suspense>
           } />
           

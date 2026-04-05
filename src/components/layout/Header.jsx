@@ -251,6 +251,20 @@ const Header = () => {
                 Contact
               </NavLink>
 
+              <NavLink
+                to="/blog"
+                className={({ isActive }) =>
+                  `px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg ${isActive
+                    ? 'text-cosmic-cyan'
+                    : scrolled
+                      ? 'text-gray-300 hover:text-cosmic-cyan'
+                      : 'text-white/90 hover:text-cosmic-cyan'
+                  }`
+                }
+              >
+                Insights
+              </NavLink>
+
               <div className="ml-4">
                 <Link to="/contact">
                   <Button variant={scrolled ? 'primary' : 'outline'} size="sm">
@@ -380,6 +394,14 @@ const Header = () => {
                       className="block px-4 py-3 text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-all duration-200"
                     >
                       Contact
+                    </Link>
+
+                    <Link
+                      to="/blog"
+                      onClick={() => setIsOpen(false)}
+                      className="block px-4 py-3 text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-all duration-200"
+                    >
+                      Insights
                     </Link>
                   </div>
 

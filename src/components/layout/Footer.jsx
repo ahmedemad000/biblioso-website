@@ -9,7 +9,7 @@ const Footer = () => {
   const [email, setEmail] = useState('')
   const [subscribed, setSubscribed] = useState(false)
   const location = useLocation()
-  
+
   const locations = [
     { region: 'United States', cities: 'Washington, Texas', timezone: 'EST/PST' },
     { region: 'Europe, Middle East, Africa', cities: 'Ireland, Dubai, Jordan', timezone: 'GMT/GST' },
@@ -23,8 +23,8 @@ const Footer = () => {
     { path: '/about', label: 'About Us' },
     { path: '/recruiting', label: 'Recruiting' },
     { path: '/contact', label: 'Contact' },
+    { path: '/blog', label: 'Insights' },
   ]
-
   const serviceLinks = [
     { path: '/services/professional', label: 'Professional Services' },
     { path: '/services/intelligent-applications', label: 'Intelligent Applications' },
@@ -133,13 +133,13 @@ const Footer = () => {
         <div className="absolute top-0 left-0 w-96 h-96 bg-cosmic-cyan rounded-full blur-[100px] animate-pulse-slow" />
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-cosmic-purple rounded-full blur-[100px] animate-pulse-slow animation-delay-2000" />
       </div>
-      
+
       <div className="relative z-10">
         {/* Newsletter Section */}
         <div className="border-b border-white/10">
           <div className="container mx-auto px-4 py-12">
             <div className="max-w-2xl mx-auto text-center">
-              <motion.h3 
+              <motion.h3
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -147,7 +147,7 @@ const Footer = () => {
               >
                 Stay Ahead of the Curve
               </motion.h3>
-              <motion.p 
+              <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -156,7 +156,7 @@ const Footer = () => {
               >
                 Get the latest insights on AI engineering and cloud innovation
               </motion.p>
-              <motion.form 
+              <motion.form
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -197,10 +197,10 @@ const Footer = () => {
               <div className="flex items-center space-x-3 mb-4">
                 {/* Logo without gradient background, larger size */}
                 <div className="flex items-center justify-center">
-                  <img 
-                    src={logo} 
-                    alt="Biblioso" 
-                    className="w-48 h-40" 
+                  <img
+                    src={logo}
+                    alt="Biblioso"
+                    className="w-48 h-40"
                   />
                 </div>
               </div>
@@ -237,8 +237,8 @@ const Footer = () => {
               <ul className="space-y-3">
                 {quickLinks.map((link) => (
                   <li key={link.path}>
-                    <Link 
-                      to={link.path} 
+                    <Link
+                      to={link.path}
                       className="text-gray-400 hover:text-cosmic-cyan transition-colors text-sm group flex items-center space-x-2"
                     >
                       <span className="w-0 group-hover:w-2 h-px bg-cosmic-cyan transition-all duration-300" />
@@ -262,8 +262,8 @@ const Footer = () => {
               <ul className="space-y-3">
                 {serviceLinks.map((link) => (
                   <li key={link.path}>
-                    <Link 
-                      to={link.path} 
+                    <Link
+                      to={link.path}
                       className="text-gray-400 hover:text-cosmic-cyan transition-colors text-sm group flex items-center space-x-2"
                     >
                       <span className="w-0 group-hover:w-2 h-px bg-cosmic-cyan transition-all duration-300" />
@@ -320,7 +320,7 @@ const Footer = () => {
           </div>
 
           {/* Bottom Bar */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
