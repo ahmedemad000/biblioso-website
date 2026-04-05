@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { 
   ArrowRight, Cpu, Cloud, Bot, BarChart3, Shield, Zap, Sparkles, Globe, Layers, 
   ChevronRight, Network, Database, CloudCog, CircuitBoard, Orbit, X, Play,
+  TrendingUp, Users
 } from 'lucide-react'
 import Button from '../components/ui/Button'
 
@@ -256,7 +257,6 @@ const Home = () => {
                   transition={{ duration: 0.3, delay: 0.5 }}
                   className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12"
                 >
-                  {/* Explore Services now links to Core Competencies */}
                   <Link to="/core-competencies">
                     <MagneticButton>
                       <Button variant="primary" size="lg" className="group relative overflow-hidden px-8 py-4">
@@ -274,7 +274,6 @@ const Home = () => {
                     </MagneticButton>
                   </Link>
                   
-                  {/* Watch Demo opens video modal */}
                   <MagneticButton onClick={() => setShowVideoModal(true)}>
                     <Button variant="outline" size="lg" className="border-white/20 hover:border-cosmic-cyan hover:text-cosmic-cyan transition-all duration-150">
                       <Play className="w-5 h-5 mr-2 inline-block" />
@@ -285,7 +284,7 @@ const Home = () => {
               </motion.div>
             </motion.div>
 
-            {/* Right Side - Premium Image Design (unchanged) */}
+            {/* Right Side - Premium Image Design */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9, rotateY: 10 }}
               animate={{ opacity: 1, scale: 1, rotateY: 0 }}
@@ -401,6 +400,35 @@ const Home = () => {
         </motion.div>
       </section>
 
+      {/* ========== STATS SECTION (Milestone 2) ========== */}
+      <section className="py-16 bg-gradient-to-b from-black to-zinc-950">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            {[
+              { value: 20, suffix: '+', label: 'Years of Experience', icon: TrendingUp },
+              { value: 4, suffix: '', label: 'Continents', icon: Globe },
+              { value: 200, suffix: '+', label: 'Engineers', icon: Users },
+              { value: 8, suffix: '+', label: 'Service Domains', icon: Layers }
+            ].map((stat, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:border-cosmic-cyan/50 transition-all duration-300 group"
+              >
+                <stat.icon className="w-8 h-8 text-cosmic-cyan mx-auto mb-3 group-hover:scale-110 transition-transform" />
+                <div className="text-3xl md:text-4xl font-bold text-white">
+                  {stat.value}{stat.suffix}
+                </div>
+                <div className="text-sm text-gray-400 mt-1">{stat.label}</div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Core Tenets Section */}
       <section className="py-24 bg-gradient-to-b from-black to-zinc-950 overflow-hidden">
         <div className="container mx-auto px-6">
@@ -454,7 +482,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* SERVICES SECTION – NO METRICS, NO NUMBERS */}
+      {/* SERVICES SECTION */}
       <section className="py-24 relative overflow-hidden bg-gradient-to-b from-zinc-950 to-black">
         <div className="absolute inset-0 opacity-30">
           <div className="absolute top-20 left-10 w-72 h-72 bg-cosmic-cyan/20 rounded-full blur-[100px] animate-pulse-slow" />
@@ -498,7 +526,6 @@ const Home = () => {
                     <div className={`p-4 rounded-2xl bg-gradient-to-r ${service.gradient} bg-opacity-20`}>
                       <service.icon className="w-10 h-10 text-cosmic-cyan" />
                     </div>
-                    {/* No metric number here */}
                   </motion.div>
 
                   <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -531,7 +558,7 @@ const Home = () => {
                   </Link>
                 </div>
 
-                {/* Right side: animated visual (no numbers) */}
+                {/* Right side: animated visual */}
                 <div className="flex-1 relative flex justify-center">
                   <motion.div
                     initial={{ scale: 0.8, opacity: 0 }}
@@ -573,7 +600,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Technology Stack - Trust Badges */}
+      {/* Technology Stack */}
       <section className="py-24 bg-gradient-to-b from-black to-zinc-950">
         <div className="container mx-auto px-6">
           <motion.div
@@ -605,55 +632,55 @@ const Home = () => {
         </div>
       </section>
 
-      {/* CTA Section – No numbers or statistics */}
-    <section className="py-24 relative overflow-hidden">
-  <div className="absolute inset-0">
-    <motion.div
-      animate={{ scale: [1, 1.2, 1] }}
-      transition={{ duration: 3, repeat: Infinity }}
-      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cosmic-cyan/10 rounded-full blur-[120px]"
-    />
-  </div>
-  
-  <div className="container mx-auto px-6 text-center relative">
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.3 }}
-    >
-      <motion.div
-        animate={{ rotate: 360 }}
-        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        className="inline-block mb-6"
-      >
-        <div className="w-12 h-12 rounded-full border border-cosmic-cyan flex items-center justify-center">
-          <div className="w-1.5 h-1.5 rounded-full bg-cosmic-cyan" />
+      {/* CTA Section */}
+      <section className="py-24 relative overflow-hidden">
+        <div className="absolute inset-0">
+          <motion.div
+            animate={{ scale: [1, 1.2, 1] }}
+            transition={{ duration: 3, repeat: Infinity }}
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cosmic-cyan/10 rounded-full blur-[120px]"
+          />
         </div>
-      </motion.div>
-      
-      <h2 className="text-4xl md:text-6xl font-bold text-white mb-4 tracking-tighter">
-        Ready to Transform<br />
-        <span className="text-cosmic-cyan">Your Business?</span>
-      </h2>
-      
-      <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
-        Join leading enterprises that trust Biblioso for their engineering transformation
-      </p>
-      
-      <Link to="/contact">
-        <MagneticButton>
-          <Button variant="primary" size="lg" className="group px-8 py-4">
-            <span className="flex items-center gap-2">
-              Get in Touch
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-150" />
-            </span>
-          </Button>
-        </MagneticButton>
-      </Link>
-    </motion.div>
-  </div>
-</section>
+        
+        <div className="container mx-auto px-6 text-center relative">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.3 }}
+          >
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              className="inline-block mb-6"
+            >
+              <div className="w-12 h-12 rounded-full border border-cosmic-cyan flex items-center justify-center">
+                <div className="w-1.5 h-1.5 rounded-full bg-cosmic-cyan" />
+              </div>
+            </motion.div>
+            
+            <h2 className="text-4xl md:text-6xl font-bold text-white mb-4 tracking-tighter">
+              Ready to Transform<br />
+              <span className="text-cosmic-cyan">Your Business?</span>
+            </h2>
+            
+            <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
+              Join leading enterprises that trust Biblioso for their engineering transformation
+            </p>
+            
+            <Link to="/contact">
+              <MagneticButton>
+                <Button variant="primary" size="lg" className="group px-8 py-4">
+                  <span className="flex items-center gap-2">
+                    Get in Touch
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-150" />
+                  </span>
+                </Button>
+              </MagneticButton>
+            </Link>
+          </motion.div>
+        </div>
+      </section>
 
       {/* Video Modal */}
       <AnimatePresence>

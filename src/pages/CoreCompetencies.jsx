@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react'
-import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion'
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { 
-  ArrowRight, Cpu, Bot, Cloud, BarChart3, ChevronRight, Sparkles, 
+  ArrowRight, Cpu, Bot, Cloud, BarChart3, Sparkles, 
   Zap, Shield, TrendingUp, Users, Globe, Layers, Code, GitBranch,
   Server, TestTube, Truck, Brain, Activity, Database, Workflow
 } from 'lucide-react'
@@ -111,8 +111,6 @@ const CoreCompetencies = () => {
     }
   ]
 
-
-
   return (
     <div ref={containerRef} className="bg-black overflow-hidden">
       {/* Hero Section */}
@@ -173,9 +171,10 @@ const CoreCompetencies = () => {
         </motion.div>
       </section>
 
-    
+      {/* Stats Section (optional – if you want to keep it, it's here) */}
+      {/* ... if you have a stats block, it would be here ... */}
 
-      {/* Competencies Grid - Main Section */}
+      {/* Competencies Grid - Main Section (Detailed alternating cards) */}
       <section className="py-24">
         <div className="container mx-auto px-6">
           <motion.div
@@ -298,53 +297,7 @@ const CoreCompetencies = () => {
         </div>
       </section>
 
-      {/* Quick Navigation Cards */}
-      <section className="py-24 bg-gradient-to-b from-black to-zinc-950">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <span className="text-cosmic-cyan font-mono text-xs tracking-wider">// QUICK ACCESS</span>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mt-3">
-              Explore <span className="text-cosmic-cyan">Each Competency</span>
-            </h2>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {competencies.map((competency, index) => (
-              <motion.div
-                key={competency.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ y: -5 }}
-              >
-                <Link to={competency.path}>
-                  <div className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-cosmic-cyan/50 transition-all duration-200 group cursor-pointer h-full">
-                    <div className={`inline-flex p-3 rounded-xl bg-gradient-to-r ${competency.bgGradient} mb-4`}>
-                      <competency.icon className="w-8 h-8 text-cosmic-cyan" />
-                    </div>
-                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-cosmic-cyan transition-colors">
-                      {competency.title}
-                    </h3>
-                    <p className="text-gray-400 text-sm mb-4 line-clamp-2">
-                      {competency.description.split('.')[0]}.
-                    </p>
-                    <div className="flex items-center text-cosmic-cyan text-sm font-medium">
-                      Learn More
-                      <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
-                    </div>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ========== REMOVED: Quick Navigation Cards section ========== */}
 
       {/* CTA Section */}
       <section className="py-24 relative overflow-hidden">
