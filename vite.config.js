@@ -3,10 +3,7 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
-  // Use a conditional base path:
-  // - For GitHub Pages (when building for gh-pages) use '/biblioso-website/'
-  // - For Vercel (production) use '/'
-  base: process.env.VERCEL ? '/' : '/biblioso-website/',
+  base: '/', // Always use root for development and Vercel
   plugins: [
     react(),
     tailwindcss(),
