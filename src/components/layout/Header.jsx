@@ -160,7 +160,7 @@ const Header = () => {
             {/* Logo only – no background, no animation, larger size */}
             <Link to="/" className="relative group">
               <div className="flex items-center">
-                <div className="w-65 h-32 flex items-center justify-center">
+                <div className="w-49 h-32 flex items-center justify-center">
                   <img src={logo} alt="Biblioso" className="w-full h-full object-contain" />
                 </div>
               </div>
@@ -194,7 +194,7 @@ const Header = () => {
                 Core Competencies
               </Link>
 
-              {/* NEW: Industries link */}
+              {/* Industries link */}
               <NavLink
                 to="/industries"
                 className={({ isActive }) =>
@@ -349,7 +349,7 @@ const Header = () => {
 
                     <div className="h-px bg-white/10 my-4" />
 
-                    {/* NEW: Industries link in mobile menu */}
+                    {/* Industries link in mobile menu */}
                     <Link
                       to="/industries"
                       onClick={() => setIsOpen(false)}

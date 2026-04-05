@@ -7,6 +7,7 @@ import {
   Server, TestTube, Truck, Brain, Activity, Database, Workflow
 } from 'lucide-react'
 import Button from '../components/ui/Button'
+import SocialProof from '../components/ui/SocialProof'
 
 const CoreCompetencies = () => {
   const containerRef = useRef(null)
@@ -296,6 +297,9 @@ const CoreCompetencies = () => {
           </div>
         </div>
       </section>
+
+      {/* ========== SOCIAL PROOF SECTION (Milestone 4) ========== */}
+      <SocialProof />
 
       {/* ========== REMOVED: Quick Navigation Cards section ========== */}
 

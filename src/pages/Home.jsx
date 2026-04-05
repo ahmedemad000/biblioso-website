@@ -7,6 +7,7 @@ import {
   TrendingUp, Users
 } from 'lucide-react'
 import Button from '../components/ui/Button'
+import SocialProof from '../components/ui/SocialProof'
 
 // Fast Magnetic Button
 const MagneticButton = ({ children, ...props }) => {
@@ -428,6 +429,9 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      {/* ========== SOCIAL PROOF SECTION (Milestone 4) ========== */}
+      <SocialProof />
 
       {/* Core Tenets Section */}
       <section className="py-24 bg-gradient-to-b from-black to-zinc-950 overflow-hidden">

@@ -10,7 +10,7 @@ const About = lazy(() => import('./pages/About'))
 const Recruiting = lazy(() => import('./pages/Recruiting'))
 const CoreCompetencies = lazy(() => import('./pages/CoreCompetencies'))
 const Contact = lazy(() => import('./pages/Contact'))
-const Industries = lazy(() => import('./pages/Industries'))  // <-- NEW
+const Industries = lazy(() => import('./pages/Industries'))
 
 // Service Pages
 const ProfessionalServices = lazy(() => import('./pages/services/ProfessionalServices'))
@@ -58,7 +58,7 @@ function App() {
               <Contact />
             </Suspense>
           } />
-          <Route path="industries" element={                               // <-- NEW
+          <Route path="industries" element={
             <Suspense fallback={<LoadingSpinner />}>
               <Industries />
             </Suspense>
